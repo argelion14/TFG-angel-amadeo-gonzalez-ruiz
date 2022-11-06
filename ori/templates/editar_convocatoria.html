@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{% block tittle %}
+Ori | Editar convocatoria {{convocatoria.anio}}
+{% endblock %}
+
+{% block active_module_convocatoria%}
+active
+{% endblock %}
+
+{% block open_convocatoria%}-open{% endblock %}
+
+{% block active_convocatorias %}
+active
+{% endblock %}
+
+{% block titulo_main %}
+Editar convocatoria <b>{{convocatoria.anio}}</b>
+{% endblock %}
+
+{% block path_main %}
+<li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+<li class="breadcrumb-item active">editar_convocatoria/{{convocatoria.id}}</li>
+{% endblock %}
+
+{% block main %}
+<section class="content">
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card card-olive">
+                <div class="card-header">
+                    <h3 class="card-title">Edición de la convocatoria <b>{{convocatoria.anio}}</b></h3>                   
+                </div>
+                <div class="card-body">
+                    <form method="POST" class="post-form" novalidate enctype="multipart/form-data">
+                        {% csrf_token %}    
+
+                        <div class="form-group">
+                            {{form.anio.label_tag}}
+                            {{form.anio}}
+                            {{form.errors.anio}}
+                        </div>
+
+                        <hr class="mb-2">
+                        <div class="col">          
+                            <input name="convocatoriaform" type="submit" value="Editar convocatoria" class="btn btn-success float-right">
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            
+        </div>
+        <div class="col-md-6">
+            <div class="card card-gray">
+                <div class="card-header">
+                    <h3 class="card-title">Subprogramas añadidos</h3>
+                </div>
+                <div class="card-body">
+                    <form method="POST" class="post-form" novalidate enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <div class="form-group">
+                            {{form1.subprograma.label_tag}}
+                            {{form1.subprograma}}
+                            {{form1.errors.subprograma}}
+                        </div>
+  
+
+                        <div class="form-group">
+                            {{form1.convocatoria.label_tag}}
+                            <select name="convocatoria" class="form-control" required="" id="id_convocatoria" readonly>
+                                
+                                <option selected value={{convocatoria.id}}>{{convocatoria.anio}}</option>
+                            </select>
+                            {{form1.errors.convocatoria}}
+                        </div>
+
+
+                        <hr class="mb-2">
+                        <div class="col">
+                            <a href="{% url 'convocatorias' %}" class="btn btn-secondary">Cancel</a>
+                            <input name="subprogramaenconvocatoriaform" type="submit" value="Añadir subprograma" class="btn btn-success float-right">
+                        </div>
+                    </form>
+
+                    <hr class="mb-2">
+                    {% if subprogramasListados %}
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Subprograma</th>
+                                <th>Programa</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for subprogramasListado in subprogramasListados %}
+                            <tr>
+                                <td>{{subprogramasListado.nombresubprograma}}</td>
+                                <td>{{subprogramasListado.programa}}</td>
+
+                                <form method="POST" class="post-form" novalidate enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <td class="text-right py-0 align-middle">
+                                        <div class="btn-group btn-group-sm">
+                                            <a title="Ver subprograma" href="/ver_subprograma/{{subprogramasListado.id}}"
+                                                class="btn btn-info"><i class="fas fa-eye"></i>
+                                            </a>
+                                            
+                                            <input hidden type="text" name="id_subprogramaconvocatoria"
+                                                value={{subprogramasListado.id}} class="form-control"
+                                                id="id_subprogramaconvocatoria">
+
+                                            <input title="Eliminar subprograma de la convocatoria" name="eliminasubprogramaconvocatoriaform" type="submit" value="Eliminar del proyecto" class="btn btn-danger">
+                                            
+                                        </div>
+                                    </td>
+                                </form>
+
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+            
+        </div>
+    </div>
+</section>
+{% endblock %}

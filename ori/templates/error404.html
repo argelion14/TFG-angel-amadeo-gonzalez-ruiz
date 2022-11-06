@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block tittle %}
+Ori | Erro404
+{% endblock %}
+
+
+{% block active_module_proyectos%}
+
+{% endblock %}
+
+{% block open_proyecto%}-open{% endblock %}
+
+{% block active_proyectos %}
+
+{% endblock %}
+
+{% block titulo_main %}
+Error
+{% endblock %}
+
+{% block path_main %}
+<li class="breadcrumb-item"><a href="{% url 'index' %}">Dashboard</a></li>
+<li class="breadcrumb-item active">Error</li>
+{% endblock %}
+
+{% block main %}
+
+<section class="content">
+    <div class="error-page">
+        <h2 class="headline text-warning"> 404</h2>
+        <div class="error-content">
+            <h3><i class="fas fa-exclamation-triangle text-warning"></i> Oops! Page not found.</h3>
+            <p>
+                We could not find the page you were looking for.
+                Meanwhile, you may <a href="{% url 'dashboard' %}">return to dashboard</a>
+            </p>
+        </div>
+    </div>    
+</section>
+
+{% endblock %}

@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% block tittle %}
+Ori | Nuevo proyecto
+{% endblock %}
+
+{% block active_module_proyectos%}
+active
+{% endblock %}
+
+{% block open_proyecto%}-open{% endblock %}
+
+{% block active_nuevo_proyecto_coordinado %}
+active
+{% endblock %}
+
+{% block titulo_main %}
+Nuevo proyecto coordinado
+{% endblock %}
+
+{% block path_main %}
+<li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+<li class="breadcrumb-item active">Proyectos</li>
+{% endblock %}
+
+{% block main %}
+
+
+
+<section class="content">
+    <form method="POST" class="post-form" novalidate enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Añadir nuevo proyecto</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            {{form.nombreproyecto.label_tag}}
+                            {{form.nombreproyecto}}
+                            {{form.errors.nombreproyecto}}
+                        </div>
+                        <div class="form-group">
+                            {{form.sigla.label_tag}}
+                            {{form.sigla}}
+                            {{form.errors.sigla}}
+                        </div>
+                        <div class="form-group">
+                            {{form.id_referencia.label_tag}}
+                            {{form.id_referencia}}
+                            {{form.errors.id_referencia}}
+                        </div>
+                        <div class="form-group">
+                            {{form.web.label_tag}}
+                            {{form.web}}
+                            {{form.errors.web}}
+                        </div>
+                        <div class="form-group">
+                            {{form.coordina_institucion.label_tag}}
+                            <select name="coordina_institucion" class="form-control" required="" id="id_coordina_institucion">
+                                <option value="1" selected>UGR</option>
+                            </select>
+                            {{form.errors.coordina_institucion}}
+                        </div>
+
+                        <div class="form-group">
+                            {{form.notas.label_tag}}
+                            {{form.notas}}
+                            {{form.errors.notas}}
+                        </div>
+                        <div class="form-group">
+                            {{form.fecha_inicio.label_tag}}
+                            {{form.fecha_inicio}}
+                            {{form.errors.fecha_inicio}}
+                        </div>
+                        <div class="form-group">
+                            {{form.fecha_fin.label_tag}}
+                            {{form.fecha_fin}}
+                            {{form.errors.fecha_fin}}
+                        </div>
+                        <div class="form-group">
+                            {{form.periodicidad.label_tag}}
+                            {{form.periodicidad}}
+                            {{form.errors.periodicidad}}
+                        </div>
+                        <div class="form-group">
+                            {{form.partnership_agreement.label_tag}}
+                            {{form.partnership_agreement}}
+                            {{form.errors.partnership_agreement}}
+                        </div>
+                        <hr class="mb-2">
+                        <div class="col">
+                            <!--<a href="{% url 'proyectos' %}" class="btn btn-secondary">Cancel</a>-->
+                            <input type="submit" value="Crear nuevo proyecto" class="btn btn-success float-right">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+
+        </div>
+
+
+        
+            
+        
+    </form>
+</section>
+
+{% endblock %}

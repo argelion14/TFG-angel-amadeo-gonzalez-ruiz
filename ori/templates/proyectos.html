@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block tittle %}
+Ori | Proyectos
+{% endblock %}
+
+{% block active_module_proyectos%}
+active
+{% endblock %}
+
+{% block open_proyecto%}-open{% endblock %}
+
+{% block active_proyectos %}
+active
+{% endblock %}
+
+{% block titulo_main %}
+Proyectos
+{% endblock %}
+
+{% block path_main %}
+<li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+<li class="breadcrumb-item active">proyectos</li>
+{% endblock %}
+
+{% block main %}
+
+<div class="col-12">
+    <div class="card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Lista de proyectos</h3>
+            <div class="card-tools">
+                <div class="input-group input-group-sm" style="width: 150px;">
+                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-default">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Tamaño de el view de la tabla-->
+        <div class="card-body table-responsive p-0" style="height: 500px;">
+            <table class="table table-head-fixed text-nowrap">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Siglas</th>
+                        <th>Id Referencia</th>
+                        <th>Web</th>
+                        <th>Asociación coordinadora</th>
+                        <th>Notas</th>
+                        <th>Fecha inicio</th>
+                        <th>Fecha fin</th>
+                        <th>Periodicidad</th>
+                        <th>Número de periodos</th>
+                        <th>Partnership Agreement</th>
+
+	                    <th>Convocatoria</th>
+	                    <th>Subprograma</th>
+                        
+
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    {% for proyecto in proyectos %}
+                    <tr>
+                        <td>{{proyecto.proyecto_id}}</td>
+                        <td>{{proyecto.nombreproyecto}}</td>
+                        <td>{{proyecto.sigla}}</td>
+                        <td>{{proyecto.id_referencia}}</td>
+                        <td>{{proyecto.web}}</td>
+                        <td>{{proyecto.coordina_institucion}}</td>
+                        <td>{{proyecto.notas}}</td>
+                        <td>{{proyecto.fecha_inicio}}</td>
+                        <td>{{proyecto.fecha_fin}}</td>
+                        <td>{{proyecto.periodicidad|striptags|title}}</td>
+                        <td>{{proyecto.num_periodos}}</td>
+                        <td>{{proyecto.partnership_agreement.estado|striptags|title}}</td>
+
+	                    <td>{{proyecto.convocatoria}}</td>
+	                    <td>{{proyecto.subprograma}}</td>
+                        
+
+                        <td class="project-actions text-right">
+                            <a class="btn btn-primary btn-sm" href="/ver_proyecto/{{proyecto.proyecto_id}}">
+                                <i class="fas fa-folder"></i>
+                                Ver
+                            </a>
+                            <a class="btn btn-info btn-sm" href="/editar_proyecto/{{proyecto.proyecto_id}}">
+                                <i class="fas fa-pencil-alt"></i>
+                                Editar
+                            </a>
+                            <a class="btn btn-danger btn-sm" href="/borrar_proyecto/{{proyecto.proyecto_id}}" onClick="return confirm('¿Seguro que quieres borrar a {{p.nombre}}?');">
+                                <i class="fas fa-trash"></i>
+                                Borrar
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

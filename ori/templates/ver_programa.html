@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block tittle %}
+Ori | Ver programa <b>{{programa.nombreprograma}}</b>
+{% endblock %}
+
+{% block active_module_programa%}
+active
+{% endblock %}
+
+{% block open_programa%}-open{% endblock %}
+
+{% block active_programas %}
+active
+{% endblock %}
+
+{% block titulo_main %}
+Ver programa <b>{{programa.nombreprograma}}</b>
+{% endblock %}
+
+{% block path_main %}
+<li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+<li class="breadcrumb-item active">ver_programa/{{programa.id}}</li>
+{% endblock %}
+
+{% block main %}
+
+<section class="content">
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card card-gray-dark">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-calendar-week"></i>
+                        Programa <b>{{programa.nombreprograma}}</b>
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-4">Nombre programa</dt>
+                        <dd class="col-sm-8">{{programa.nombreprograma}}</dd>
+                        
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+{% endblock %}

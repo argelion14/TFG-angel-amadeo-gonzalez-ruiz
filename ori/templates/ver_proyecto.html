@@ -1,0 +1,323 @@
+{% extends "base.html" %}
+{% block tittle %}
+Ori | Ver proyecto {{proyecto.nombreproyecto}}
+{% endblock %}
+
+{% block open_proyecto%}-open{% endblock %}
+
+{% block active_module_proyectos%}
+active
+{% endblock %}
+
+{% block active_proyectos %}
+active
+{% endblock %}
+
+{% block titulo_main %}
+Ver proyecto <b>{{proyecto.nombreproyecto}}</b>
+{% endblock %}
+
+{% block path_main %}
+<li class="breadcrumb-item"><a href="{% url 'proyectos' %}">Proyectos</a></li>
+<li class="breadcrumb-item active">ver_proyecto/{{proyecto.proyecto_id}}</li>
+{% endblock %}
+
+{% block main %}
+
+<section class="content">
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-briefcase"></i>
+                        Proyecto <b>{{proyecto.nombreproyecto}}</b>
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-4">Nombre</dt>
+                        <dd class="col-sm-8">{{proyecto.nombreproyecto}}</dd>
+                        <dt class="col-sm-4">Siglas</dt>
+                        <dd class="col-sm-8">{{proyecto.sigla}}</dd>
+                        <dt class="col-sm-4">Id de referencia</dt>
+                        <dd class="col-sm-8">{{proyecto.id_referencia}}</dd>
+                        <dt class="col-sm-4">Web</dt>
+                        <dd class="col-sm-8">{{proyecto.web}}</dd>
+                        <dt class="col-sm-4">Asociación coordinadora</dt>
+                        <dd class="col-sm-8">{{proyecto.coordina_institucion}}</dd>
+                        <dt class="col-sm-4">Notas</dt>
+                        <dd class="col-sm-8">{{proyecto.notas}}</dd>
+                        <dt class="col-sm-4">Fecha inicio</dt>
+                        <dd class="col-sm-8">{{proyecto.fecha_inicio}}</dd>
+                        <dt class="col-sm-4">Fecha fin</dt>
+                        <dd class="col-sm-8">{{proyecto.fecha_fin}}</dd>
+                        <dt class="col-sm-4">Periodicidad</dt>
+                        <dd class="col-sm-8">{{proyecto.periodicidad}}</dd>
+                        <dt class="col-sm-4">Partnership Agreement</dt>
+                        <dd class="col-sm-8">{{proyecto.partnership_agreement}}</dd>
+                    </dl>
+                </div>
+            </div>
+
+            <div class="card card-navy">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-building-columns"></i>
+                        Instituciones
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-4">Institución coordinadora</dt>
+                        <dd class="col-sm-8">{{proyecto.coordina_institucion}}</dd>
+                        
+                        
+                    </dl>
+                    {%if instituciones_participantes%}
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Instituciones participantes</th>
+                                <th>Email</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for institucion in instituciones_participantes%}
+                            <tr>
+                                <td>{{institucion.nombreinstitucion}}</td>
+                                <td>{{institucion.email}}</td>
+                                
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {%else%}
+                    <p class="card-text">No existe ninguna institución participante en el proyecto</p>
+                    {%if user.is_staff%}
+                    <a class="btn btn-info btn-sm" href="/editar_proyecto/{{proyecto.proyecto_id}}">
+                        <i class="fas fa-pencil-alt"></i>
+                        Añadir institución participante
+                    </a>
+                    {%endif%}
+                    {%endif%}
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="col-md-6">
+            
+            <div class="card card-maroon">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-hourglass-half"></i>
+                        Periodos
+                    </h3>
+                </div>
+                {% if periodos %}
+                    <div class="card-body table-responsive p-0" style="height: 350px;">
+                        <table class="table table-head-fixed text-nowrap">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Número de periodo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                                {% for periodo in periodos %}
+                                <tr>
+                                    <td>{{periodo.id}}</td>
+                                    <td>{{periodo.num_periodo}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <div class="card-body">
+                        <p class="card-text">No existe ningún presupuesto asociado al proyecto</p>
+                        {%if user.is_staff%}
+                        <a class="btn btn-info btn-sm" href="/editar_proyecto/{{proyecto.proyecto_id}}">
+                            <i class="fas fa-pencil-alt"></i>
+                            Añadir periodos
+                        </a>
+                        {%endif%}
+                    </div>
+                    {% endif %}
+            </div>
+
+            <div class="card card-lightblue">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-sack-dollar"></i>
+                        Presupuesto
+                    </h3>
+                </div>
+                
+                <div class="card-body">
+                    {%if presupuesto%}
+                    <dl class="row">
+                        <dt class="col-sm-4">Organismo financiador</dt>
+                        <dd class="col-sm-8">{{presupuesto.organismo_financiador}}</dd>
+                        <dt class="col-sm-4">Total</dt>
+                        <dd class="col-sm-8">{{presupuesto.total}}</dd>
+                        <dt class="col-sm-4">Presentación</dt>
+                        <dd class="col-sm-8">{{presupuesto.presentacion}}</dd>
+                    </dl>
+                    {%else%}
+                    <p class="card-text">No existe ningún presupuesto asociado al proyecto</p>
+                    {%if user.is_staff%}
+                    <a class="btn btn-info btn-sm" href="/editar_proyecto/{{proyecto.proyecto_id}}">
+                        <i class="fas fa-pencil-alt"></i>
+                        Añadir presupuesto
+                    </a>
+                    {%endif%}
+                    {%endif%}
+                </div>
+            </div>
+            
+            <div class="card card-orange">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-file"></i>
+                        Archivos
+                    </h3>
+                </div>
+                <div class="card-body">
+                    {%if files%}
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nombre del archivo</th>
+                                <th>Tamaño del archivo</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for file in files %}
+                            <tr>
+                                <td>{{file.file}}</td>
+                                <td>Sin calcular</td>
+                                <td class="text-right py-0 align-middle">
+                                    <div class="btn-group btn-group-sm">
+                                        <a target="_blank" href="/media/{{file.file}}" class="btn btn-info">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a download target="_blank" href="/media/{{file.file}}" class="btn btn-secondary">
+                                            <i class="fas fa-download"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {%else%}
+                    <p class="card-text">No existe ningún fichero asociado al proyecto</p>
+                    {%if user.is_staff%}
+                    <a class="btn btn-info btn-sm" href="/editar_proyecto/{{proyecto.proyecto_id}}">
+                        <i class="fas fa-pencil-alt"></i>
+                        Añadir fichero
+                    </a>
+                    {%endif%}
+                    {%endif%}
+                </div>
+            </div>
+
+            <div class="card card-info">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-calendar"></i>          
+                        Convocatoria y <i class="fas fa-window-restore"></i> Subprograma
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-4">Convocatoria</dt>
+                        <dd class="col-sm-8">{{convocatoriaysubprograma.convocatoria}}</dd>
+                        
+                        
+                    </dl>
+                    <hr class="mb-2">
+                    <dl class="row">
+                        <dt class="col-sm-4">Subprograma</dt>
+                        <dd class="col-sm-8">{{convocatoriaysubprograma.subprograma}}</dd>
+                        
+                        
+                    </dl>
+                    
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-12">
+            <div class="card card-teal">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-people-group"></i>
+                        Participantes
+                    </h3>
+                </div>
+                <div class="card-body">
+                    {%if participantesListados%}
+                    <table class="table table-head-fixed text-nowrap">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Vinculación</th>
+                                <th>Departamento</th>
+                                <th>Email</th>
+                                <th>Notas</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            {% for participantesListado in participantesListados %}
+                            <tr>
+                                <td>{{participantesListado.id}}</td>
+                                <td>{{participantesListado.username}}</td>
+                                <td>{{participantesListado.vinculacion}}</td>
+                                <td>{{participantesListado.departamento}}</td>
+                                <td>{{participantesListado.email}}</td>
+                                <td>{{participantesListado.notas}}</td>
+                                {% if participantesListado.id == user.id %}
+                                <td class="project-actions text-right">
+                                    <a title="Ver perfil" class="btn btn-primary btn-sm" href="{% url 'ver_perfil' %}">
+                                        <i class="fas fa-folder"></i>
+                                        Ver peril
+                                    </a>
+                                </td>
+                                {%else%}
+                                <td class="project-actions text-right">
+                                    <a title="Ver" class="btn btn-primary btn-sm" href="/ver_participante/{{participantesListado.id}}">
+                                        <i class="fas fa-folder"></i>
+                                        Ver
+                                    </a>
+                                </td>
+                                {%endif%}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {%else%}
+                    <p class="card-text">No existe ningún participante asociado al proyecto</p>
+                    {%if user.is_staff%}
+                    <a class="btn btn-info btn-sm" href="/editar_proyecto/{{proyecto.proyecto_id}}">
+                        <i class="fas fa-pencil-alt"></i>
+                        Añadir participante
+                    </a>
+                    {%endif%}
+                    {%endif%}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+{% endblock %}

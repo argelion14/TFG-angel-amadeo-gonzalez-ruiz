@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% load static %}
+{% block tittle %}
+Ori | Contacto
+{% endblock %}
+
+{% block contacto %}
+active
+{% endblock %}
+
+{% block titulo_main %}
+Contacto
+{% endblock %}
+
+{% block path_main %}
+<li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+<li class="breadcrumb-item active">contacto</li>
+
+
+{% endblock %}
+
+{% block main %}
+
+<div class="card-body pb-0">
+    <div class="row">
+        <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
+            <div class="card bg-light d-flex flex-fill">
+                <div class="card-header text-muted border-bottom-0">
+                    Alumno
+                </div>
+                <div class="card-body pt-0">
+                    <div class="row">
+                        <div class="col-7">
+                            <h2 class="lead"><b>Ángel Amadeo González Ruiz</b></h2>
+                            <p class="text-muted text-sm"><b>Sobre: </b> Doble grado en Ingeniería Informática y Administración y Dirección de Empresas</p>
+                            <ul class="ml-4 mb-0 fa-ul text-muted">
+                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span>
+                                    E.T.S. de Ingenierías Informática y de Telecomunicación
+                                </li>
+                                <li class="small"><span class="fa-li"><i class="fas fa-solid fa-envelope"></i></span> 
+                                    <a title="Enviar correo" href="mailto:angelgonza@ugr.es" target="_blank" rel="noopener noreferrer">angelgonza@ugr.es</a>
+                                </li>
+                                <hr class="mb-2">
+                                <li class="small"><span class="fa-li"><i class="fas fa-brands fa-linkedin"></i></span> 
+                                    <a target="_blank" href="https://www.linkedin.com/in/angel-amadeo-gonzalez-ruiz/">linkedin.com/in/angel-amadeo-gonzalez-ruiz</a>
+                                </li>
+                                <li class="small"><span class="fa-li"><i class="fas fa-brands fa-github"></i></span> 
+                                    <a target="_blank" href="https://github.com/argelion14">github.com/argelion14</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <div class="col-5 text-center">
+                            <img src="{% static 'img/Logo_ORI.png' %}" alt="alumno-foto" class="img-circle img-fluid">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
+            <div class="card bg-light d-flex flex-fill">
+                <div class="card-header text-muted border-bottom-0">
+                    Tutor
+                </div>
+                <div class="card-body pt-0">
+                    <div class="row">
+                        <div class="col-7">
+                            <h2 class="lead"><b>Ignacio José Blanco Medina</b></h2>
+                            <p class="text-muted text-sm"><b>Sobre: </b> Director De Estrategia Internacional / Profesor Titular de Universidad</p>
+                            <ul class="ml-4 mb-0 fa-ul text-muted">
+
+                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span>
+                                    Vicerrectorado de Internacionalización
+                                </li>
+                                <li class="small"><span class="fa-li"><i class="fas fa-solid fa-envelope"></i></span> 
+                                    <a title="Enviar correo" href="mailto:dirstrategy@ugr.es" target="_blank" rel="noopener noreferrer">dirstrategy@ugr.es</a>
+                                </li>
+                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span>
+                                    958249897
+                                </li>
+
+                                <hr class="mb-2">
+                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span>
+                                    E.T.S. de Ingenierías Informática y de Telecomunicación
+                                </li>
+                                <li class="small"><span class="fa-li"><i class="fas fa-solid fa-envelope"></i></span> 
+                                    <a title="Enviar correo" href="mailto:iblanco@ugr.es" target="_blank" rel="noopener noreferrer">iblanco@ugr.es</a>
+                                </li>
+                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span>
+                                    958240428
+                                </li>
+                                <hr class="mb-2">
+                                <li class="small"><span class="fa-li"><i class="fas fa-brands fa-linkedin"></i></span> 
+                                    <a target="_blank" href="https://www.linkedin.com/in/ijblanco/">linkedin.com/in/ijblanco</a>
+                                </li>
+                                
+                                <li class="small"><span class="fa-li"><i class="fas fa-brands fa-twitter"></i></span> 
+                                    <a target="_blank" href="https://twitter.com/zircacona">zircarona</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <div class="col-5 text-center">
+                            <img src="{% static 'img/Logo_ORI.png' %}" alt="tutor-foto" class="img-circle img-fluid">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

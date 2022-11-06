@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block tittle %}
+Ori | Nuevo subprograma
+{% endblock %}
+
+{% block active_module_programa%}
+active
+{% endblock %}
+
+{% block open_programa%}-open{% endblock %}
+
+{% block active_nuevo_subprograma %}
+active
+{% endblock %}
+
+{% block titulo_main %}
+Nuevo subprograma
+{% endblock %}
+
+{% block path_main %}
+<li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+<li class="breadcrumb-item active">nuevo_subprograma</li>
+{% endblock %}
+
+{% block main %}
+
+
+
+<section class="content">
+    <form method="POST" class="post-form" novalidate enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="card card-gray">
+                    <div class="card-header">
+                        <h3 class="card-title">Añadir nuevo subprograma</h3>
+                    </div>
+                    <div class="card-body">
+                        
+
+                        <div class="form-group">
+                            {{form.nombresubprograma.label_tag}}
+                            {{form.nombresubprograma}}
+                            {{form.errors.nombresubprograma}}
+                        </div>
+                        <div class="form-group">
+                            {{form.programa.label_tag}}
+                            {{form.programa}}
+                            {{form.errors.programa}}
+                        </div>
+
+                        <div class="form-group">
+                            {{form.padresubprograma.label_tag}}
+                            {{form.padresubprograma}}
+                            {{form.errors.padresubprograma}}
+                        </div>
+
+                        <hr class="mb-2">
+                        <div class="col">
+                            <!--<a href="{% url 'proyectos' %}" class="btn btn-secondary">Cancel</a>-->
+                            <input name="crearnuevosubprograma" type="submit" value="Crear nuevo subprograma" class="btn btn-success float-right">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-6">
+                <div class="card card-info">
+                    <div class="card-header">
+                        <h3 class="card-title">Convocatoria en la que se realiza</h3>
+                    </div>
+                    <div class="card-body">
+                        
+                        <div class="form-group">
+                            {{form2.convocatoria.label_tag}}
+                            {{form2.convocatoria}}
+                            {{form2.errors.convocatoria}}
+                        </div>
+
+                        
+                    </div>
+                </div>
+            </div>
+
+        </div>  
+    </form>
+</section>
+
+{% endblock %}

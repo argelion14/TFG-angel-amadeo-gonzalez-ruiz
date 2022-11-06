@@ -1,0 +1,437 @@
+{% extends "base.html" %}
+{% block tittle %}
+Ori | Editar proyecto {{proyecto.nombreproyecto}}
+{% endblock %}
+
+{% block active_module_proyectos%}
+active
+{% endblock %}
+
+{% block open_proyecto%}-open{% endblock %}
+
+{% block active_proyectos %}
+active
+{% endblock %}
+
+{% block titulo_main %}
+Editar proyecto <b>{{proyecto.nombreproyecto}}</b>
+{% endblock %}
+
+{% block path_main %}
+<li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+<li class="breadcrumb-item active">editar_proyecto/{{proyecto.proyecto_id}}</li>
+{% endblock %}
+
+{% block main %}
+<section class="content">
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Edición del proyecto <b>{{proyecto.nombreproyecto}}</b></h3>
+                </div>
+                <form method="POST" class="post-form" novalidate enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="card-body">
+                        <div class="form-group">
+                            {{form.nombreproyecto.label_tag}}
+                            {{form.nombreproyecto}}
+                            {{form.errors.nombreproyecto}}
+                        </div>
+                        <div class="form-group">
+                            {{form.sigla.label_tag}}
+                            {{form.sigla}}
+                            {{form.errors.sigla}}
+                        </div>
+                        <div class="form-group">
+                            {{form.id_referencia.label_tag}}
+                            {{form.id_referencia}}
+                            {{form.errors.id_referencia}}
+                        </div>
+                        <div class="form-group">
+                            {{form.web.label_tag}}
+                            {{form.web}}
+                            {{form.errors.web}}
+                        </div>
+                        <div class="form-group">
+                            {{form.coordina_institucion.label_tag}}
+                            {{form.coordina_institucion}}
+                            {{form.errors.coordina_institucion}}
+                        </div>
+
+                        <div class="form-group">
+                            {{form.notas.label_tag}}
+                            {{form.notas}}
+                            {{form.errors.notas}}
+                        </div>
+                        <div class="form-group">
+                            {{form.fecha_inicio.label_tag}}
+                            {{form.fecha_inicio}}
+                            {{form.errors.fecha_inicio}}
+                        </div>
+                        <div class="form-group">
+                            {{form.fecha_fin.label_tag}}
+                            {{form.fecha_fin}}
+                            {{form.errors.fecha_fin}}
+                        </div>
+                        <div class="form-group">
+                            {{form.periodicidad.label_tag}}
+                            {{form.periodicidad}}
+                            {{form.errors.periodicidad}}
+                        </div>
+                        <div class="form-group">
+                            {{form.partnership_agreement.label_tag}}
+                            {{form.partnership_agreement}}
+                            {{form.errors.partnership_agreement}}
+                        </div>
+                        <hr class="mb-2">
+                        <div class="col">
+                            <a href="{% url 'proyectos' %}" class="btn btn-secondary">Cancel</a>
+                            <input name="proyectoform" type="submit" value="Editar {{proyecto.nombreproyecto}}" class="btn btn-success float-right">
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            
+
+            <div class="card card-navy">
+                <div class="card-header">
+                    <h3 class="card-title">Instituciones</h3>
+                </div>
+                <div class="card-body">
+                    <form method="POST" class="post-form" novalidate enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <div class="form-group">
+                            {{form5.institucion.label_tag}}
+                            {{form5.institucion}}
+                            {{form5.errors.institucion}}
+                        </div>
+
+                        <div class="form-group">
+                            {{form5.proyecto.label_tag}}
+                            <select name="proyecto" class="form-control" required="" id="id_proyecto" readonly>
+                                <option selected="" value="{{proyecto.proyecto_id}}">{{proyecto.nombreproyecto}}</option>
+                            </select>
+                            {{form5.errors.proyecto}}
+                        </div>
+
+                        <hr class="mb-2">
+                        <div class="col">
+                            <a href="{% url 'proyectos' %}" class="btn btn-secondary">Cancel</a>
+                            <input name="institucionesform" type="submit" value="Añadir institución participante" class="btn btn-success float-right">
+                        </div>
+
+
+                    </form>
+                    <hr class="mb-2">
+                    {% if institucionesParticipantesListadas %}
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Institucion</th>
+                                <th>Email</th>
+                                <th>País</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for institucionesParticipantes in institucionesParticipantesListadas %}
+                            <tr>
+                                <td>{{institucionesParticipantes.nombreinstitucion}}</td>
+                                <td>{{institucionesParticipantes.email}}</td>
+                                <td>{{institucionesParticipantes.pais}}</td>
+                                <form method="POST" class="post-form" novalidate enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <td class="text-right py-0 align-middle">
+                                        <div class="btn-group btn-group-sm">
+                                            <input hidden type="text" name="id_institucionparticipante"
+                                                value={{institucionesParticipantes.id}} class="form-control"
+                                                id="id_institucionparticipante">
+
+                                            <input title="Eliminar institucion del proyecto"
+                                                name="eliminainstitucionform" type="submit"
+                                                value="Eliminar del proyecto" class="btn btn-danger">
+                                        </div>
+                                    </td>
+                                </form>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="col-md-6">
+            <div class="card card-maroon">
+                <div class="card-header">
+                    <h3 class="card-title">Periodos</h3>
+                </div>                   
+                    {% if periodos %}
+                    <div class="card-body table-responsive p-0" style="height: 350px;">
+                        <table class="table table-head-fixed text-nowrap">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Número de periodo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                                {% for periodo in periodos %}
+                                <tr>
+                                    <td>{{periodo.id}}</td>
+                                    <td>{{periodo.num_periodo}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    {% else %}
+                    <div class="card-body">
+                        <form method="POST" class="post-form" novalidate enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <input type="number" name="num_periodos" class="form-control" 
+                            placeholder="Número de periodos que tiene el proyecto" id="id_num_periodos">
+                            <hr class="mb-2">
+                            <div class="col">
+                                <a href="{% url 'proyectos' %}" class="btn btn-secondary">Cancel</a>
+                                <input name="periodoextraform" type="submit" value="Definir número de periodos" class="btn btn-success float-right">
+                            </div>
+                        </form>
+                    </div>
+                    {% endif %}
+            </div>
+
+            <div class="card card-lightblue">
+                <div class="card-header">
+                    <h3 class="card-title">Presupuesto</h3>
+                </div>
+                <form method="POST" class="post-form" novalidate enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="card-body">
+                        <div class="form-group">
+                            {{form2.proyecto.label_tag}}
+                            <select name="proyecto" class="form-control" required="" id="id_proyecto" readonly>
+                                <option value="{{proyecto.proyecto_id}}" selected="">{{proyecto.nombreproyecto}}
+                                </option>
+                            </select>
+                            {{form2.errors.proyecto}}
+                        </div>
+                        <div class="form-group">
+                            {{form2.organismo_financiador.label_tag}}
+                            {{form2.organismo_financiador}}
+                            {{form2.errors.organismo_financiador}}
+                        </div>
+                        <div class="form-group">
+                            {{form2.total.label_tag}}
+                            {{form2.total}}
+                            {{form2.errors.total}}
+                        </div>
+                        <div class="form-group">
+                            {{form2.presentacion.label_tag}}
+                            {{form2.presentacion}}
+                            {{form2.errors.presentacion}}
+                        </div>
+                        <hr class="mb-2">
+                        <div class="col">
+                            <a href="{% url 'proyectos' %}" class="btn btn-secondary">Cancel</a>
+                            <input name="presupuestoform" type="submit" value="Editar presupuesto"
+                                class="btn btn-success float-right">
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="card card-orange">
+                <div class="card-header">
+                    <h3 class="card-title">Archivos</h3>
+                </div>
+                <div class="card-body">
+                    <form method="POST" class="post-form" novalidate enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            {{form1.file.label_tag}}
+                            <!--<label >Adjunto</label>-->
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    {{form1.file}}
+                                    <!--<input type="file" class="custom-file-input" id="exampleInputFile">-->
+                                    <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                </div>
+                                <div class="input-group-append">
+                                    <span class="input-group-text">Upload</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {{form1.file_proyecto_id.label_tag}}
+                                <select name="file_proyecto_id" class="form-control" required="" id="id_file_proyecto_id" readonly>
+                                    <option selected value="{{proyecto.proyecto_id}}">{{proyecto.nombreproyecto}}
+                                    </option>
+                                </select>
+                                {{form1.errors.file_proyecto_id}}
+                                <hr class="mb-2">
+                                <div class="col">
+                                    <a href="{% url 'proyectos' %}" class="btn btn-secondary">Cancel</a>
+                                    <input name="archivoform" type="submit" value="Subir archivo"
+                                        class="btn btn-success float-right">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    {% if files %}
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nombre del archivo</th>
+                                <th>Tamaño del archivo</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for file in files %}
+                            <tr>
+                                <td>{{file.file}}</td>
+                                <td>Sin calcular</td>
+                                <td class="text-right py-0 align-middle">
+                                    <div class="btn-group btn-group-sm">
+                                        <a title="Ver archivo" target="_blank" href="/media/{{file.file}}"
+                                            class="btn btn-info"><i class="fas fa-eye"></i></a>
+                                        <a title="Eliminar archivo" href="/borrar_archivo/{{file.id}}"
+                                            class="btn btn-danger"
+                                            onClick="return confirm('¿Seguro que quieres borrar el archivo {{file.file}}?');"><i
+                                                class="fas fa-trash"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% endif %}
+
+                </div>
+            </div>
+
+            <div class="card card-info">
+                <div class="card-header">
+                    <h3 class="card-title">Convocatoria y subprograma</h3>
+                </div>
+                <form method="POST" class="post-form" novalidate enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="card-body">
+                        
+                        <div class="form-group">
+                            {{form6.convocatoriasubprogramas.label_tag}}
+                            {{form6.convocatoriasubprogramas}}
+                            {{form6.errors.convocatoriasubprogramas}}
+                        </div>
+                        <div class="form-group">
+                            {{form6.proyecto.label_tag}}
+                            <select name="proyecto" class="form-control" required="" id="id_proyecto" readonly>
+                                <option selected="" value="{{proyecto.proyecto_id}}">{{proyecto.nombreproyecto}} </option>
+                            </select>
+                            {{form6.errors.proyecto}}
+                        </div>
+
+                        <hr class="mb-2">
+                        <div class="col">
+                            <a href="{% url 'proyectos' %}" class="btn btn-secondary">Cancel</a>
+                            <input name="editarconvocatoriasubprograma" type="submit" value="Editar convocatoria con subprograma"
+                                class="btn btn-success float-right">
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+
+
+            <div class="card card-teal">
+                <div class="card-header">
+                    <h3 class="card-title">Participantes añadidos</h3>
+                </div>
+                <div class="card-body">
+                    <form method="POST" class="post-form" novalidate enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <div class="form-group">
+                            {{form4.participante.label_tag}}
+                            {{form4.participante}}
+                            {{form4.errors.participante}}
+                        </div>
+
+                        <div class="form-group">
+                            {{form4.proyecto.label_tag}}
+                            <select name="proyecto" class="form-control" required="" id="id_proyecto" readonly>
+                                <option selected="" value="{{proyecto.proyecto_id}}">{{proyecto.nombreproyecto}}</option>
+                            </select>
+                            {{form4.errors.proyecto}}
+                        </div>
+
+                        <hr class="mb-2">
+                        <div class="col">
+                            <a href="{% url 'proyectos' %}" class="btn btn-secondary">Cancel</a>
+                            <input name="participanteform" type="submit" value="Añadir participante"
+                                class="btn btn-success float-right">
+                        </div>
+                    </form>
+
+                    <hr class="mb-2">
+                    {% if participantesListados %}
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nombre del participante</th>
+                                <th>Departamento</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for participanteListados in participantesListados %}
+                            <tr>
+                                <td>{{participanteListados.username}}</td>
+                                <td>{{participanteListados.departamento}}</td>
+                                <form method="POST" class="post-form" novalidate enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <td class="text-right py-0 align-middle">
+                                        <div class="btn-group btn-group-sm">
+                                            {% if participanteListados.id == user.id %}
+                                            <a title="Ver perfil" href="{% url 'ver_perfil' %}"
+                                                class="btn btn-info"><i class="fas fa-eye"></i>
+                                            </a>
+                                            {%else%}
+                                            <a title="Ver participante" href="/ver_participante/{{participanteListados.id}}"
+                                                class="btn btn-info"><i class="fas fa-eye"></i>
+                                            </a>
+                                            {%endif%}
+                                            <input hidden type="text" name="id_participante"
+                                                value={{participanteListados.id}} class="form-control"
+                                                id="id_participante">
+
+                                            <input title="Eliminar participante del proyecto"
+                                                name="eliminaparticipanteform" type="submit"
+                                                value="Eliminar del proyecto" class="btn btn-danger">                                           
+                                        </div>
+                                    </td>
+                                </form>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}

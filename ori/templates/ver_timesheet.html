@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% block tittle %}
+Ori | Ver timesheet {{timesheet.id}}
+{% endblock %}
+
+{% block active_module_timesheet%}
+active
+{% endblock %}
+
+{% block open_timesheet%}-open{% endblock %}
+
+{% block active_timesheets %}
+active
+{% endblock %}
+
+{% block titulo_main %}
+Ver timesheet <b>{{timesheet.id}}</b>
+{% endblock %}
+
+{% block path_main %}
+<li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+<li class="breadcrumb-item active">ver_timesheet/{{timesheet.id}}</li>
+{% endblock %}
+
+{% block main %}
+
+<section class="content">
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card card-purple">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-briefcase-clock"></i>
+                            Timesheet <b>{{timesheet.id}}</b>
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <dl class="row">
+                            <dt class="col-sm-4">ID timesheet</dt>
+                            <dd class="col-sm-8">{{timesheet.id}}</dd>
+                            <dt class="col-sm-4">Tipo</dt>
+                            <dd class="col-sm-8">{{timesheet.tipo}}</dd>
+                            <dt class="col-sm-4">Rol</dt>
+                            <dd class="col-sm-8">{{timesheet.rol}}</dd>
+                            <dt class="col-sm-4">Periodo</dt>
+                            <dd class="col-sm-8">{{timesheet.periodo}} de Proyecto: {{timesheet.periodo.proyecto}}</dd>
+                            <dt class="col-sm-4">Intellectual_output</dt>
+                            <dd class="col-sm-8">{{timesheet.intellectual_output}}</dd>
+                            <dt class="col-sm-4">Número de días de trabajo</dt>
+                            <dd class="col-sm-8">{{timesheet.num_working_days}}</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card card-info">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-user"></i>
+                            Participante y <i class="fas fa-briefcase"></i> Proyecto
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <dl class="row">
+                            <dt class="col-sm-4">Participante</dt>
+                            <dd class="col-sm-8">{{participanteyproyecto.participante}}</dd>
+                        </dl>
+                        <hr class="mb-2">
+                        <dl class="row">
+                            <dt class="col-sm-4">Proyecto</dt>
+                            <dd class="col-sm-8">{{participanteyproyecto.proyecto}}</dd>
+                        </dl>
+                    </div>
+                </div>
+
+                <div class="card card-indigo">
+                    <div class="card-header">
+                        
+                        <h3 class="card-title">
+                            <i class="fas fa-hammer"></i>
+                            Tareas
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        {% if tareas %}
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Nombre tarea</th>
+                                    <th>Día</th>
+                                    <th>Lugar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {%for tarea in tareas%}
+                                <tr data-widget="expandable-table" aria-expanded="false">
+                                    <td>{{tarea.nombretarea|striptags|title}}</td>
+                                    <td>{{tarea.dia|striptags|title}}</td>
+                                    <td>{{tarea.lugar|striptags|title}}</td>
+                                </tr>
+                                <tr class="expandable-body d-none">
+                                    <td colspan="5">
+                                        <p style="display: none;">
+                                            <b>Descripción:</b> {{tarea.descripcion}}
+                                        </p>
+                                    </td>
+                                </tr>
+                                {%endfor%}
+                            </tbody>
+                        </table>
+                        {%else%}
+                        <p class="card-text">No existe ninguna tarea asociada a la timesheet</p>                        
+                        <a class="btn btn-info btn-sm" href="/editar_proyecto/{{proyecto.proyecto_id}}">
+                            <i class="fas fa-pencil-alt"></i>
+                            Añadir tarea a la timesheet
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

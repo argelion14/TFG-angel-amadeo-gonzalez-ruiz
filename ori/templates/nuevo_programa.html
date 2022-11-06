@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block tittle %}
+Ori | Nuevo programa
+{% endblock %}
+
+{% block active_module_programa%}
+active
+{% endblock %}
+
+{% block open_programa%}-open{% endblock %}
+
+{% block active_nuevo_programa %}
+active
+{% endblock %}
+
+{% block titulo_main %}
+Nuevo programa
+{% endblock %}
+
+{% block path_main %}
+<li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+<li class="breadcrumb-item active">nuevo_programa</li>
+{% endblock %}
+
+{% block main %}
+
+
+
+<section class="content">
+    <form method="POST" class="post-form" novalidate enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card card-gray-dark">
+                    <div class="card-header">
+                        <h3 class="card-title">Añadir nuevo programa</h3>
+                    </div>
+                    <div class="card-body">
+                        
+                        <div class="form-group">
+                            {{form.nombreprograma.label_tag}}
+                            {{form.nombreprograma}}
+                            {{form.errors.nombreprograma}}
+                        </div>
+                        
+                        <hr class="mb-2">
+                        <div class="col">
+                            <!--<a href="{% url 'proyectos' %}" class="btn btn-secondary">Cancel</a>-->
+                            <input type="submit" value="Crear nuevo programa" class="btn btn-success float-right">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+
+        </div>  
+    </form>
+</section>
+
+{% endblock %}

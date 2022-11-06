@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block tittle %}
+Ori | Editar programa {{programa.id}}
+{% endblock %}
+
+{% block active_module_programa%}
+active
+{% endblock %}
+
+{% block open_programa%}-open{% endblock %}
+
+{% block active_programas %}
+active
+{% endblock %}
+
+{% block titulo_main %}
+Editar programa <b>{{programa.nombreprograma}}</b>
+{% endblock %}
+
+{% block path_main %}
+<li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+<li class="breadcrumb-item active">editar_programa/{{programa.id}}</li>
+{% endblock %}
+
+{% block main %}
+<section class="content">
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card card-gray-dark">
+                <div class="card-header">
+                    <h3 class="card-title">Edición del programa {{programa.nombreprograma}}</h3>
+                </div>
+                <div class="card-body">
+                    <form method="POST" class="post-form" novalidate enctype="multipart/form-data">
+                        {% csrf_token %}    
+
+                        <div class="form-group">
+                            {{form.nombreprograma.label_tag}}
+                            {{form.nombreprograma}}
+                            {{form.errors.nombreprograma}}
+                        </div>
+                        <div class="form-group">
+                            {{form.tiempo.label_tag}}
+                            {{form.tiempo}}
+                            {{form.errors.tiempo}}
+                        </div>
+
+                        <hr class="mb-2">
+                        <div class="col">
+                            
+                            <input name="programaform" type="submit" value="Editar programa" class="btn btn-success float-right">
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            
+        </div>
+        
+    </div>
+</section>
+{% endblock %}

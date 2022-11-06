@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+{% block tittle %}
+Ori | Dashboard
+{% endblock %}
+
+
+{% block active_dashboard %}
+active
+{% endblock %}
+
+{% block titulo_main %}
+Dashboard
+{% endblock %}
+
+{% block path_main %}
+<li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+<li class="breadcrumb-item active">Dashboard</li>
+{% endblock %}
+
+{% block script%}
+<script>
+    $(function () {
+        //-------------
+        //- DONUT CHART -
+        //-------------
+        // Get context with jQuery - using jQuery's .get() method.
+        var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
+        var donutData = {
+            labels: [
+                'Proyectos',
+                'Participantes',
+                'Convocatorias',
+                'Programas',
+                'Subprogramas',
+                'Timesheets',
+            ],
+            datasets: [
+                {
+                    data: [{{numeros_ori.num_proyectos}}, 
+                    {{numeros_ori.num_participantes}}, 
+                    {{numeros_ori.num_convocatorias}}, 
+                    {{numeros_ori.num_programas}}, 
+                    {{numeros_ori.num_subprogramas}}, 
+                    {{numeros_ori.num_timesheets}}],
+                    backgroundColor: ['#007bff', '#20C997', '#3D9970', '#343A40', '#6C757D', '#6F42C1'],
+                }
+            ]
+        }
+        var donutOptions = {
+            maintainAspectRatio: false,
+            responsive: true,
+        }
+        //Create pie or douhnut chart
+        // You can switch between pie and douhnut using the method below.
+        new Chart(donutChartCanvas, {
+            type: 'doughnut',
+            data: donutData,
+            options: donutOptions
+        })
+    })
+</script>
+{% endblock %}
+
+
+{% block main %}
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6">
+                
+                <div class="card card-info card-outline">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-database"></i> Datos almacenados</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="chartjs-size-monitor">
+                            <div class="chartjs-size-monitor-expand">
+                                <div class=""></div>
+                            </div>
+                            <div class="chartjs-size-monitor-shrink">
+                                <div class=""></div>
+                            </div>
+                        </div>
+                        <canvas id="donutChart"
+                            style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 393px;"
+                            width="491" height="312" class="chartjs-render-monitor"></canvas>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="col-lg-6">
+
+                <div class="card card-info card-outline">
+                    <div class="card-header">
+                        <h5 class="m-0"><i class="fas fa-solid fa-circle-info"></i> Información</h5>
+                    </div>
+                    <div class="card-body">
+                        
+                        <p class="card-text">Aquí se encuentra información útil para entender más de este proyecto</p>
+                        <a href="{% url 'informacion' %}" class="btn btn-info">Ir a información</a>
+                    </div>
+                </div>
+
+                <div class="card card-info card-outline">
+                    <div class="card-header">
+                        <h5 class="m-0"><i class="fas fa-solid fa-address-book"></i> Contacto</h5>
+                    </div>
+                    <div class="card-body">
+                        
+                        <p class="card-text">Aquí se encuentra información de contacto</p>
+                        <a href="{% url 'contacto' %}" class="btn btn-info">Ir a contacto</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+<!--
+
+    <div class="card">
+                    <div class="card-header border-0">
+                        <div class="d-flex justify-content-between">
+                            <h3 class="card-title">Online Store Visitors</h3>
+                            <a href="javascript:void(0);">View Report</a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <p class="d-flex flex-column">
+                                <span class="text-bold text-lg">820</span>
+                                <span>Visitors Over Time</span>
+                            </p>
+                            <p class="ml-auto d-flex flex-column text-right">
+                                <span class="text-success">
+                                    <i class="fas fa-arrow-up"></i> 12.5%
+                                </span>
+                                <span class="text-muted">Since last week</span>
+                            </p>
+                        </div>
+
+                        <div class="position-relative mb-4">
+                            <div class="chartjs-size-monitor">
+                                <div class="chartjs-size-monitor-expand">
+                                    <div class=""></div>
+                                </div>
+                                <div class="chartjs-size-monitor-shrink">
+                                    <div class=""></div>
+                                </div>
+                            </div>
+                            <canvas id="visitors-chart" height="250"
+                                style="display: block; height: 200px; width: 466px;" width="582"
+                                class="chartjs-render-monitor"></canvas>
+                        </div>
+
+                        <div class="d-flex flex-row justify-content-end">
+                            <span class="mr-2">
+                                <i class="fas fa-square text-primary"></i> This Week
+                            </span>
+                            <span>
+                                <i class="fas fa-square text-gray"></i> Last Week
+                            </span>
+                        </div>
+
+                    </div>
+                </div>
+
+-->

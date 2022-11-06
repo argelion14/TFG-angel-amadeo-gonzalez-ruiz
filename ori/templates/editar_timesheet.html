@@ -1,0 +1,216 @@
+{% extends "base.html" %}
+{% block tittle %}
+Ori | Editar timesheet {{timesheet.id}}
+{% endblock %}
+
+{% block active_module_timesheet%}
+active
+{% endblock %}
+
+{% block open_timesheet%}-open{% endblock %}
+
+{% block active_timesheets %}
+active
+{% endblock %}
+
+{% block titulo_main %}
+Editar timesheet <b>{{timesheet.id}}</b>
+{% endblock %}
+
+{% block path_main %}
+<li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+<li class="breadcrumb-item active">editar_timesheet/{{timesheet.id}}</li>
+{% endblock %}
+
+{% block main %}
+<section class="content">
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card card-purple">
+                <div class="card-header">
+                    <h3 class="card-title">Edición de la timesheet <b>{{timesheet.id}}</b></h3>
+                </div>
+                <form method="POST" class="post-form" novalidate enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="card-body">
+                        <div class="form-group">
+                            {{form.tipo.label_tag}}
+                            {{form.tipo}}
+                            {{form.errors.tipo}}
+                        </div>
+                        <div class="form-group">
+                            {{form.rol.label_tag}}
+                            {{form.rol}}
+                            {{form.errors.rol}}
+                        </div>
+                        <div class="form-group">
+                            {{form.periodo.label_tag}}
+                            <select select name="periodo" class="form-control" required="" id="id_periodo">
+                                <option value="" selected="">---------</option>
+                                {%for periodo in periodosenproyectoelparticipante%}
+                                <option value="{{periodo.id}}">Proyecto (al que pertenece el periodo) =
+                                    {{periodo.proyecto.nombreproyecto}} , Número de periodo = {{periodo.num_periodo}}
+                                </option>
+                                {%endfor%}
+                            </select>
+                            {{form.errors.periodo}}
+                        </div>
+                        <div class="form-group">
+                            {{form.intellectual_output.label_tag}}
+                            {{form.intellectual_output}}
+                            {{form.errors.intellectual_output}}
+                        </div>
+                        <div class="form-group">
+                            {{form.num_horas.label_tag}}
+                            {{form.num_horas}}
+                            {{form.errors.num_horas}}
+                        </div>
+                    
+                        <hr class="mb-2">
+                        <div class="col">
+                            <a href="{% url 'timesheet' %}" class="btn btn-secondary">Cancel</a>
+                            <input name="timesheetform" type="submit" value="Editar {{proyecto.nombreproyecto}}"
+                                class="btn btn-success float-right">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card card-info">
+                <div class="card-header">
+                    <h3 class="card-title">Participante y Proyecto</h3>
+                </div>
+                <form method="POST" class="post-form" novalidate enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="card-body">
+
+                        <div class="form-group">
+                            {{form1.participanteproyectos.label_tag}}
+                            <select name="participanteproyectos" class="form-control" required=""
+                                id="id_participanteproyectos">
+                                <option value="" selected="">---------</option>
+                                {%for proyectopa in proyectoparti%}
+                                <option value="{{proyectopa.id}}">{{proyectopa}}</option>
+                                {%endfor%}
+                            </select>
+                            {{form1.errors.participanteproyectos}}
+                        </div>
+
+                        <div class="form-group">
+                            {{form1.timesheet.label_tag}}
+                            <select name="timesheet" class="form-control" required="" id="id_timesheet" readonly>
+                                <option selected="" value="{{timesheet.id}}">{{timesheet.id}} </option>
+                            </select>
+                            {{form1.errors.timesheet}}
+                        </div>
+
+                        <hr class="mb-2">
+                        <div class="col">
+                            <a href="{% url 'timesheet' %}" class="btn btn-secondary">Cancel</a>
+                            <input name="editarparticipanteproyecto" type="submit" value="Editar participante proyecto"
+                                class="btn btn-success float-right">
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="card card-indigo">
+                <div class="card-header">
+                    <h3 class="card-title">Tareas</h3>
+                </div>
+                <div class="card-body">
+                    <form method="POST" class="post-form" novalidate enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="card-body">
+
+                            <div class="form-group">
+                                {{form2.nombretarea.label_tag}}
+                                {{form2.nombretarea}}
+                                {{form2.errors.nombretarea}}
+                            </div>
+                            <div class="form-group">
+                                {{form2.descripcion.label_tag}}
+                                {{form2.descripcion}}
+                                {{form2.errors.descripcion}}
+                            </div>
+                            <div class="form-group">
+                                {{form2.dia.label_tag}}
+                                {{form2.dia}}
+                                {{form2.errors.dia}}
+                            </div>
+                            <div class="form-group">
+                                {{form2.lugar.label_tag}}
+                                {{form2.lugar}}
+                                {{form2.errors.lugar}}
+                            </div>
+                            <div class="form-group">
+                                {{form2.timesheet.label_tag}}
+                                <select name="timesheet" class="form-control" required="" id="id_timesheet" readonly>
+                                    <option value={{timesheet.id}} selected="">{{timesheet.id}}</option>
+                                </select>
+                                {{form2.errors.timesheet}}
+                            </div>
+
+                        </div>
+                        <hr class="mb-2">
+                        <div class="col">
+                            <a href="{% url 'timesheet' %}" class="btn btn-secondary">Cancel</a>
+                            <input name="agregatareaatimesheet" type="submit" value="Agregar tarea"
+                                class="btn btn-success float-right">
+                        </div>
+                    </form>
+
+                    {% if tareas %}
+                    <hr class="mb-2">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Nombre tarea</th>
+                                <th>Día</th>
+                                <th>Lugar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {%for tarea in tareas%}
+                            <tr data-widget="expandable-table" aria-expanded="false">
+                                <td>{{tarea.nombretarea|striptags|title}}</td>
+                                <td>{{tarea.dia|striptags|title}}</td>
+                                <td>{{tarea.lugar|striptags|title}}</td>
+                                <td class="text-right py-0 align-middle">
+                                    <div class="btn-group btn-group-sm">
+                                        <a title="Eliminar tarea de la timesheet" href="/borrar_tarea/{{tarea.id}}"
+                                            class="btn btn-danger"
+                                            onClick="return confirm('¿Seguro que quieres borrar la tarea {{tarea.nombretarea}}?');"><i
+                                                class="fas fa-trash"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                            <tr class="expandable-body d-none">
+                                <td colspan="5">
+                                    <p style="display: none;">
+                                        <b>Descripción:</b> {{tarea.descripcion}}
+                                    </p>
+                                </td>
+                                
+                            </tr>
+                            {%endfor%}
+                        </tbody>
+                    </table>
+                    {% endif %}
+
+
+                </div>
+
+
+
+            </div>
+        </div>
+
+    </div>
+    </div>
+</section>
+
+{% endblock %}

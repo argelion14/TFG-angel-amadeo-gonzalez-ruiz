@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% block tittle %}
+Ori | Editar subprograma {{subprograma.id}}
+{% endblock %}
+
+{% block active_module_programa%}
+active
+{% endblock %}
+
+{% block open_programa%}-open{% endblock %}
+
+{% block active_subprogramas %}
+active
+{% endblock %}
+
+{% block titulo_main %}
+Editar subprograma <b>{{subprograma.nombresubprograma}}</b>
+{% endblock %}
+
+{% block path_main %}
+<li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+<li class="breadcrumb-item active">editar_subprograma/{{subprograma.id}}</li>
+{% endblock %}
+
+{% block main %}
+<section class="content">
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card card-gray">
+                <div class="card-header">
+                    <h3 class="card-title">Edición del subprograma <b>{{subprograma.nombresubprograma}}</b></h3>
+                </div>
+                <div class="card-body">
+                    <form method="POST" class="post-form" novalidate enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <div class="form-group">
+                            {{form.nombresubprograma.label_tag}}
+                            {{form.nombresubprograma}}
+                            {{form.errors.nombresubprograma}}
+                        </div>
+                        <div class="form-group">
+                            {{form.programa.label_tag}}
+                            {{form.programa}}
+                            {{form.errors.programa}}
+                        </div>
+                        <div class="form-group">
+                            {{form.padresubprograma.label_tag}}
+                            {{form.padresubprograma}}
+                            {{form.errors.padresubprograma}}
+                        </div>
+
+                        <hr class="mb-2">
+                        <div class="col">
+
+                            <input name="subprogramaform" type="submit" value="Editar subprograma"
+                                class="btn btn-success float-right">
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="col-md-6">
+            <div class="card card-olive">
+                <div class="card-header">
+                    <h3 class="card-title">Convocatorias</h3>
+                </div>
+                <div class="card-body">
+                    <form method="POST" class="post-form" novalidate enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            {{form1.convocatoria.label_tag}}
+                            {{form1.convocatoria}}
+                            {{form1.errors.convocatoria}}
+                        </div>
+                        <div class="form-group">
+                            {{form1.subprograma.label_tag}}
+                            <select name="subprograma" class="form-control" required="" id="id_subprograma" readonly>
+                                <option selected="" value="{{subprograma.id}}" >{{subprograma.nombresubprograma}}</option>
+                              </select>
+                            {{form1.errors.subprograma}}
+                        </div>
+                        <hr class="mb-2">
+                        <div class="col">
+                            <a href="{% url 'subprogramas' %}" class="btn btn-secondary">Cancel</a>
+                            <input name="convocatoriaconsubprogramasform" type="submit" value="Añadir convocatoria"
+                                class="btn btn-success float-right">
+                        </div>
+                    </form>
+
+                    <hr class="mb-2">
+                    {% if convocatoriasubprogramaListadas %}
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Año de la convocatoria</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for convocatoriasubprograma in convocatoriasubprogramaListadas %}
+                            <tr>
+                                <td>{{convocatoriasubprograma.anio}}</td>
+                                
+                                <form method="POST" class="post-form" novalidate enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <td class="text-right py-0 align-middle">
+                                        <div class="btn-group btn-group-sm">
+                                            <a title="Ver convocatoria"
+                                                href="/ver_convocatoria/{{convocatoriasubprograma.id}}"
+                                                class="btn btn-info"><i class="fas fa-eye"></i>
+                                            </a>                                           
+                                            <input hidden type="text" name="id_convocatoria"
+                                                value={{convocatoriasubprograma.id}} class="form-control"
+                                                id="id_convocatoria">
+
+                                            <input title="Eliminar convocatoria del subprograma"
+                                                name="eliminaconvocatoriaform" type="submit"
+                                                value="Eliminar convocatoria" class="btn btn-danger">
+                                            <!--<a title="Eliminar participante del proyecto" href="/borrar_/24" class="btn btn-danger" onclick="return confirm('¿Seguro que quieres borrar el archivo archivos/Logo_Estrellas_del_sur.png?');"><i class="fas fa-solid fa-right-from-bracket"></i></a>-->
+                                        </div>
+                                    </td>
+                                </form>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% endif %}
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

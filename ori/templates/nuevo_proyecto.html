@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% block tittle %}
+Ori | Nuevo proyecto
+{% endblock %}
+
+{% block active_module_proyectos%}
+active
+{% endblock %}
+
+{% block open_proyecto%}-open{% endblock %}
+
+{% block active_nuevo_proyecto %}
+active
+{% endblock %}
+
+{% block titulo_main %}
+Nuevo proyecto
+{% endblock %}
+
+{% block path_main %}
+<li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+<li class="breadcrumb-item active">nuevo_proyecto</li>
+{% endblock %}
+
+{% block main %}
+
+
+
+<section class="content">
+    <form method="POST" class="post-form" novalidate enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Añadir nuevo proyecto</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            {{form.nombreproyecto.label_tag}}
+                            {{form.nombreproyecto}}
+                            {{form.errors.nombreproyecto}}
+                        </div>
+                        <div class="form-group">
+                            {{form.sigla.label_tag}}
+                            {{form.sigla}}
+                            {{form.errors.sigla}}
+                        </div>
+                        <div class="form-group">
+                            {{form.id_referencia.label_tag}}
+                            {{form.id_referencia}}
+                            {{form.errors.id_referencia}}
+                        </div>
+                        <div class="form-group">
+                            {{form.web.label_tag}}
+                            {{form.web}}
+                            {{form.errors.web}}
+                        </div>
+                        <div class="form-group">
+                            {{form.coordina_institucion.label_tag}}
+                            {{form.coordina_institucion}}
+                            {{form.errors.coordina_institucion}}
+                        </div>
+
+                        <div class="form-group">
+                            {{form.notas.label_tag}}
+                            {{form.notas}}
+                            {{form.errors.notas}}
+                        </div>
+                        <div class="form-group">
+                            {{form.fecha_inicio.label_tag}}
+                            {{form.fecha_inicio}}
+                            {{form.errors.fecha_inicio}}
+                        </div>
+                        <div class="form-group">
+                            {{form.fecha_fin.label_tag}}
+                            {{form.fecha_fin}}
+                            {{form.errors.fecha_fin}}
+                        </div>
+                        <div class="form-group">
+                            {{form.periodicidad.label_tag}}
+                            {{form.periodicidad}}
+                            {{form.errors.periodicidad}}
+                        </div>
+                        <div class="form-group">
+                            {{form.partnership_agreement.label_tag}}
+                            {{form.partnership_agreement}}
+                            {{form.errors.partnership_agreement}}
+                        </div>
+
+                        <hr class="mb-2">
+                        <div class="col">
+                            <input type="submit" value="Crear nuevo proyecto" class="btn btn-success float-right">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card card-info">
+                    <div class="card-header">
+                        <h3 class="card-title">Enlazar con convocatoria y subprograma</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            {{form2.convocatoriasubprogramas.label_tag}}
+                            {{form2.convocatoriasubprogramas}}
+                            {{form2.errors.convocatoriasubprogramas}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>  
+    </form>
+</section>
+
+{% endblock %}

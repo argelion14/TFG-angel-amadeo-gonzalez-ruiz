@@ -1,0 +1,563 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es-ES">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Ángel Amadeo González Ruiz">
+  <title>{% block tittle %}BASE{% endblock %}</title>
+  <link rel="shortcut icon" type="image/png" href="{% static 'img/Logo_ORI.ico' %}" />
+  
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  
+  <!-- Font Awesome Icons-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!--<link rel="stylesheet" href="{% static 'lib/AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css' %}">-->
+
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static 'css/adminlte.min.css' %}">
+  <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/css/adminlte.min.css">-->
+
+  <!-- Flag icon -->
+  <link rel="stylesheet" href="{% static 'css/flag-icon-css/css/flag-icon.min.css' %}">
+
+  <!-- OverlayScrollbars -->
+  <link rel="stylesheet" href="{% static 'overlayScrollbars/css/OverlayScrollbars.min.css' %}">
+
+  <!--
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons+Outlined">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Symbols+Outlined">
+  -->
+</head>
+
+<body class="sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+  <div class="wrapper">
+    <!--Preloader-->
+    <div class="preloader flex-column justify-content-center align-items-center">
+      <img class="animation__shake" src="{% static 'img/Logo_ORI.png' %}" alt="AdminLTELogo" height="200" width="200">
+    </div>
+
+
+    <!-- Navbar -->
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+      <!-- Left navbar links -->
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a title="Expandir/Comprimir" class="nav-link" data-widget="pushmenu" href="#" role="button"><i
+              class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+          <a title="Portada" href="{% url 'portada' %}" class="nav-link">Portada</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+          <a title="Contacto" href="{% url 'contacto' %}"
+            class="nav-link {% block contacto %}{% endblock %}">Contacto</a>
+        </li>
+      </ul>
+
+      <!-- Right navbar links -->
+      <ul class="navbar-nav ml-auto">
+        <!-- Navbar Search -->
+        <li class="nav-item">
+          <a title="Búsqueda" class="nav-link" data-widget="navbar-search" href="#" role="button">
+            <i class="fas fa-search"></i>
+          </a>
+          <div class="navbar-search-block">
+            <form class="form-inline">
+              <div class="input-group input-group-sm">
+                <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+                <div class="input-group-append">
+                  <button class="btn btn-navbar" type="submit">
+                    <i class="fas fa-search"></i>
+                  </button>
+                  <button class="btn btn-navbar" type="button" data-widget="navbar-search">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a title="Idiomas" class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
+            <i class="flag-icon flag-icon-es"></i>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right p-0" style="left: inherit; right: 0px;">
+            <a href="#" class="dropdown-item active">
+              <i class="flag-icon flag-icon-es mr-2"></i> Spanish
+            </a>
+            <a href="#" class="dropdown-item">
+              <i class="flag-icon flag-icon-us mr-2"></i> English
+            </a>
+            <a href="#" class="dropdown-item">
+              <i class="flag-icon flag-icon-de mr-2"></i> German
+            </a>
+            <a href="#" class="dropdown-item">
+              <i class="flag-icon flag-icon-fr mr-2"></i> French
+            </a>
+          </div>
+        </li>
+
+        <li class="nav-item">
+          <a title="Fullscreen" class="nav-link" data-widget="fullscreen" role="button">
+            <i class="fas fa-expand-arrows-alt"></i>
+          </a>
+        </li>
+        {% if user.is_authenticated and user.is_superuser%}
+        <li class="nav-item">
+          <a title="Menu admin" class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+            <i class="fas fa-th-large"></i>
+          </a>
+        </li>
+        {%endif%}
+      </ul>
+    </nav>
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+      <!-- Brand Logo -->
+      <a title="dashboard" href="{% url 'dashboard' %}" class="brand-link">
+        <img title="dashboard" src="{% static 'img/Logo_ORI.png' %}" alt="Logo ORI"
+          class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-light">ORI</span>
+      </a>
+      <!-- Sidebar -->
+      <div class="sidebar">
+
+        <!-- Sidebar user panel -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+
+          <div class="info">
+            {% if user.is_authenticated and user.is_superuser%}
+            <a title="Cerrar sesión" href="{% url 'logout' %}">
+              <i class="fas fa-solid fa-power-off"></i>
+            </a>
+            <a title="Ver perfil" href="{% url 'ver_perfil' %}">
+              <span style="color:lime" class="brand-text font-weight-light">{{user.email}} (admin)</span>
+            </a>
+            {% elif user.is_authenticated and user.is_staff %}
+            <a title="Cerrar sesión" href="{% url 'logout' %}">
+              <i class="fas fa-solid fa-power-off"></i>
+            </a>
+            <a title="Ver perfil" href="{% url 'ver_perfil' %}">
+              <span style="color:orange" class="brand-text font-weight-light">{{user.email}} (staff)</span>
+            </a>
+            {% elif user.is_authenticated%}
+            <a title="Cerrar sesión" href="{% url 'logout' %}">
+              <i class="fas fa-solid fa-power-off"></i>
+            </a>
+            <a title="Ver perfil" href="{% url 'ver_perfil' %}">
+              <span class="brand-text font-weight-light">{{user.email}}</span>
+            </a>
+            {%else%}
+            <a title="Iniciar sesión" href="{% url 'login' %}" class="d-block"><i class="fas fa-solid fa-right-to-bracket"></i> Iniciar sesión</a>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- SidebarSearch Form -->
+        <div class="form-inline">
+          <div class="input-group" data-widget="sidebar-search">
+            <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+            <div class="input-group-append">
+              <button class="btn btn-sidebar">
+                <i class="fas fa-search fa-fw"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+          <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu"
+            data-accordion="false">
+            <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+
+            <li class="nav-item  ">
+              <a title="Dashboard" href="{% url 'dashboard' %}"
+                class="nav-link {% block active_dashboard %}{% endblock %}">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>Dashboard</p>
+              </a>
+            </li>
+
+            <li class="nav-header">MÓDULOS</li>
+
+            <li class="nav-item menu{% block open_RRHH%}{% endblock %}">
+              <a title="Módulo Recursos Humanos" href="#" class="nav-link {% block active_module_RRHH%}{% endblock %}">
+                <i class="nav-icon fas fa-solid fa-hands-holding-child"></i>
+                <p>RRHH<i class="right fas fa-angle-left"></i></p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a title="Lista de participantes" href="{% url 'participantes' %}"
+                    class="nav-link {% block active_participantes %}{% endblock %}">
+                    <i class="nav-icon fas fa-solid fa-people-group"></i>
+                    <p>Participantes</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a title="Nuevo participante" href="{% url 'nuevo_participante' %}"
+                    class="nav-link {% block active_nuevo_participante %}{% endblock %}">
+                    <i class="nav-icon fas fa-solid fa-person-circle-plus"></i>
+                    <p>Nuevo participante</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="nav-item menu{% block open_convocatoria%}{% endblock %}">
+              <a title="Módulo Convocatoria" href="#"
+                class="nav-link {% block active_module_convocatoria%}{% endblock %}">
+                <i class="nav-icon fas fa-solid fa-calendar  "></i>
+                <p>Convocatoria<i class="right fas fa-angle-left"></i></p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a title="Lista de convocatorias" href="{% url 'convocatorias' %}"
+                    class="nav-link {% block active_convocatorias %}{% endblock %} ">
+                    <i class="nav-icon fas fa-solid fa-calendar-week"></i>
+                    <p>Convocatorias</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a title="Nueva convocatoria" href="{% url 'nueva_convocatoria' %}"
+                    class="nav-link {% block active_nueva_convocatoria %}{% endblock %}">
+                    <i class="nav-icon fas fa-solid fa-calendar-plus"></i>
+                    <p>Nueva convocatoria</p>
+                  </a>
+                </li>
+
+              </ul>
+            </li>
+
+            <li class="nav-item menu{% block open_programa%}{% endblock %}">
+              <a title="Módulo Convocatoria" href="#" class="nav-link {% block active_module_programa%}{% endblock %}">
+                <i class="nav-icon fas fa-solid fa-scroll  "></i>
+                <p>Programa<i class="right fas fa-angle-left"></i></p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a title="Lista de convocatorias" href="{% url 'programas' %}"
+                    class="nav-link {% block active_programas %}{% endblock %} ">
+                    <i class="nav-icon fas fa-solid fa-window-maximize"></i>
+                    <p>Programas</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a title="Lista de convocatorias" href="{% url 'nuevo_programa' %}"
+                    class="nav-link {% block active_nuevo_programa %}{% endblock %} ">
+                    <i class="nav-icon fas fa-solid fa-plus"></i>
+                    <p>Nuevo programa</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a title="Lista de convocatorias" href="{% url 'subprogramas' %}"
+                    class="nav-link {% block active_subprogramas %}{% endblock %} ">
+                    <i class="nav-icon fas fa-solid fa-window-restore"></i>
+                    <p>Subprogramas</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a title="Nueva convocatoria" href="{% url 'nuevo_subprograma' %}"
+                    class="nav-link {% block active_nuevo_subprograma %}{% endblock %}">
+                    <i class="nav-icon fas fa-solid fa-plus"></i>
+                    <p>Nuevo subprograma</p>
+                  </a>
+                </li>
+
+              </ul>
+            </li>
+
+            <li class="nav-item menu{% block open_proyecto%}{% endblock %}">
+              <a title="Módulo Proyecto" href="#" class="nav-link {% block active_module_proyectos%}{% endblock %}">
+                <i class="nav-icon fas fa-solid fa-briefcase"></i>
+                <p>Proyecto<i class="right fas fa-angle-left"></i></p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a title="Lista de proyectos" href="{% url 'proyectos' %}"
+                    class="nav-link {% block active_proyectos %}{% endblock %} ">
+                    <i class="nav-icon fas fa-solid fa-list"></i>
+                    <p>Proyectos</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a title="Nuevo proyecto" href="{% url 'nuevo_proyecto' %}"
+                    class="nav-link {% block active_nuevo_proyecto %}{% endblock %} ">
+                    <i class="nav-icon fas fa-solid fa-plus"></i>
+                    <p>Nuevo proyecto</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="nav-item menu{% block open_timesheet%}{% endblock %}">
+              <a title="Módulo Timesheet" href="#" class="nav-link {% block active_module_timesheet%}{% endblock %}">
+                <i class="nav-icon fas fa-solid fa-business-time"></i>
+                <p>Timesheet<i class="right fas fa-angle-left"></i></p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a title="Lista de participantes" href="{% url 'timesheet' %}"
+                    class="nav-link {% block active_timesheets %}{% endblock %}">
+                    <i class="nav-icon fas fa-solid fa-clock"></i>
+                    <p>Timesheets</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a title="Nueva timesheet" href="{% url 'nueva_timesheet' %}"
+                    class="nav-link {% block active_nueva_timesheet %}{% endblock %}">
+                    <i class="nav-icon fas fa-solid fa-user-clock"></i>
+                    <p>Nueva timesheet</p>
+                  </a>
+                </li>
+
+              </ul>
+            </li>
+
+
+
+            <!--Documentación extra-->
+            <li class="nav-header">EXTRA</li>
+            <li class="nav-item  ">
+              <a title="Información" href="{% url 'informacion' %}"
+                class="nav-link {% block active_informacion %} {% endblock %}">
+                <i class="nav-icon fas fa-solid fa-circle-info"></i>
+                <!--<i class="material-symbols-outlined" id="icon">home</i>-->
+                <p>Información
+                  <!--<span class="right badge badge-danger">New</span>-->
+                </p>
+              </a>
+            </li>
+
+          </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+      </div>
+      <!-- /.sidebar -->
+    </aside>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0">{% block titulo_main %}BASE{%endblock%}</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                {% block path_main %}
+                <li class="breadcrumb-item active">BASE</li>
+                {% endblock %}
+              </ol>
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+      </div>
+      <!-- /.content-header -->
+
+
+      <section class="content">
+
+        {% if messages %}
+        {% for message in messages %}
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+        <div class="alert alert-danger alert-dismissible">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+          <h5><i class="icon fas fa-ban"></i>ERROR!</h5>
+          {{ message }}
+        </div>
+        {% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+        <div class="alert alert-success alert-dismissible">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+          <h5><i class="icon fas fa-check"></i>ÉXITO!</h5>
+          {{ message }}
+        </div>
+        {% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+        <div class="alert alert-warning alert-dismissible">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+          <h5><i class="icon fas fa-exclamation-triangle"></i>CUIDADO!</h5>
+          {{ message }}
+        </div>
+        {% elif message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+        <div class="alert alert-info alert-dismissible">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+          <h5><i class="icon fas fa-info"></i>INFORMACIÓN!</h5>
+          {{ message }}
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+
+      </section>
+
+      {% block main %}
+
+
+
+      {% endblock %}
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Control Sidebar -->
+    {% if user.is_authenticated and user.is_superuser%}
+    <aside class="control-sidebar control-sidebar-dark">
+      <!-- Control sidebar content goes here -->
+      <div class="p-3">
+        <h5>Administración</h5>
+        <a target="_blank" href="/admin" class="nav-link">
+          <p>Formularios de admin</p>
+        </a>
+        <hr class="mb-2">
+        <h6>Área usuarios</h6>
+
+        <hr class="mb-2">
+        <h6>Área módulos</h6>
+        <a target="_blank" href="/admin/ori/departamento/add/" class="nav-link">
+          <p>Añadir Departamento</p>
+        </a>
+        <a target="_blank" href="/admin/ori/institucion/add/" class="nav-link">
+          <p>Añadir Institución</p>
+        </a>
+        <a target="_blank" href="/admin/ori/partnershipagreement/add/" class="nav-link">
+          <p>Añadir Partnership Agreement</p>
+        </a>
+        <a target="_blank" href="/admin/ori/periodicidad/add/" class="nav-link">
+          <p>Añadir Periodicidades</p>
+        </a>
+        <a target="_blank" href="/admin/ori/rol/add/" class="nav-link">
+          <p>Añadir Roles</p>
+        </a>
+
+      </div>
+    </aside>
+    {%endif%}
+    <!-- /.control-sidebar -->
+
+    <!-- Main Footer -->
+    <footer class="main-footer">
+      <!-- To the right -->
+      <div class="float-right d-none d-sm-inline">
+        ORI | Ángel Amadeo González Ruiz
+      </div>
+      <!-- Default to the left -->
+      <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+    </footer>
+  </div>
+
+  <!-- REQUIRED SCRIPTS -->
+  <!-- jQuery -->
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+  <!-- Bootstrap 4 -->
+  <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+  <!-- AdminLTE App -->
+  <script src="{% static 'js/adminlte.min.js' %}"></script>
+
+  <script src="{% static 'js/bs-custom-file-input.min.js' %}"></script>
+
+  <script src="{% static 'overlayScrollbars/js/jquery.overlayScrollbars.min.js' %}"></script>
+
+  <script src="{% static 'js/chart.js/Chart.min.js' %}"></script>
+
+  <script>
+    $(function () {
+      bsCustomFileInput.init();
+    });
+  </script>
+  {% block script %}{% endblock %}
+  
+</body>
+
+</html>

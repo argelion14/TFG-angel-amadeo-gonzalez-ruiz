@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+{% load static %}
+{% block tittle %}
+Ori | Perfil: {{user.username}}
+{% endblock %}
+
+
+{% block titulo_main %}
+Perfil: <b>{{user.username|striptags|title}}</b>
+{% endblock %}
+
+{% block path_main %}
+<li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+<li class="breadcrumb-item active">ver_perfil</li>
+
+
+{% endblock %}
+
+{% block main %}
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card card-teal">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-user"></i>
+                            Perfil <b>{{user.username|striptags|title}}</b>
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <dl class="row">
+                            <dt class="col-sm-4">Username</dt>
+                            <dd class="col-sm-8">{{user.username}}</dd>
+                            <dt class="col-sm-4">Nombre</dt>
+                            <dd class="col-sm-8">{{user.first_name}}</dd>
+                            <dt class="col-sm-4">Vinculacion</dt>
+                            <dd class="col-sm-8">{{user.vinculacion}}</dd>
+                            <dt class="col-sm-4">Departamento</dt>
+                            <dd class="col-sm-8">{{user.departamento}}</dd>
+                            <dt class="col-sm-4">Email</dt>
+                            <dd class="col-sm-8">{{user.email}}</dd>
+                            <dt class="col-sm-4">Notas</dt>
+                            <dd class="col-sm-8">{{user.notas}}</dd>
+                            {% if user.is_authenticated and user.is_superuser%}
+                            <dt class="col-sm-4">ID</dt>
+                            <dd class="col-sm-8">{{user.id}}</dd>
+                            <dt class="col-sm-4">Staff</dt>
+                            <dd class="col-sm-8">{{user.is_staff}}</dd>
+                            <dt class="col-sm-4">Superuser</dt>
+                            <dd class="col-sm-8">{{user.is_superuser}}</dd>
+                            <dt class="col-sm-4">Activo</dt>
+                            <dd class="col-sm-8">{{user.is_active}}</dd>
+                            {%endif%}
+                        </dl>
+                        <hr class="mb-2">
+                        <div class="col">
+                            <a class="btn btn-info btn-sm" href="{% url 'editar_perfil' %}">
+                                <i class="fas fa-pen-to-square"></i>
+                                Editar perfil
+                            </a>
+                            <a class="btn btn-danger btn-sm" href="{% url 'eliminar_perfil' %}" onClick="return confirm('¿Seguro que quieres borrar tu perfil: {{user.username}}?');">
+                                <i class="fas fa-pen-to-square"></i>
+                                Borrar mi perfil
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-briefcase"></i>
+                            Proyectos
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        {%if proyectos%}
+                        <table class="table table-head-fixed text-nowrap">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Siglas</th>
+                                    <th>Id Referencia</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+    
+                                {% for proyecto in proyectos %}
+                                <tr>
+                                    <td>{{proyecto.proyecto_id}}</td>
+                                    <td>{{proyecto.nombreproyecto}}</td>
+                                    <td>{{proyecto.sigla}}</td>
+                                    <td>{{proyecto.id_referencia}}</td>
+                                    <td class="project-actions text-right">
+                                        <a class="btn btn-primary btn-sm" href="/ver_proyecto/{{proyecto.proyecto_id}}">
+                                            <i class="fas fa-folder"></i>
+                                            Ver
+                                        </a>
+                                    </td>
+
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        {%else%}
+                        <p class="card-text">No participas en ningún proyecto</p>
+                        {%if user.is_staff%}
+                        <a class="btn btn-info btn-sm" href="{% url 'nuevo_proyecto' %}">
+                            <i class="fas fa-plus"></i>
+                            Añadeté en algun proyecto que crees
+                        </a>
+                        {%endif%}
+                        {%endif%}
+                    </div>
+                </div>
+                <div class="card card-purple">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-briefcase-clock"></i>
+                            Timesheets de <b>{{user.username}}</b>
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        {%if proyectos%}
+                        <a class="btn btn-info btn-sm" href="{% url 'nueva_timesheet' %}">
+                            <i class="fas fa-plus"></i>
+                            Añadir timesheet
+                        </a>
+                        <hr class="mb-2">
+                        {%endif%}
+                        {%if posee%}
+                        <table class="table table-head-fixed text-nowrap">
+                            <thead>
+                                <tr>
+                                    <th>Participante</th>
+                                    <th>Proyecto</th>
+                                    <th>ID Timesheet</th>          
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for pos in posee %}
+                                
+                                <tr>
+                                    <td>{{pos.participanteproyectos.participante.username}}</td>
+                                    <td>{{pos.participanteproyectos.proyecto}}</td>
+                                    <td>{{pos.timesheet}}</td>
+                                    <td class="project-actions text-right">
+                                        <a class="btn btn-primary btn-sm" href="/ver_timesheet/{{pos.timesheet.id}}">
+                                            <i class="fas fa-folder"></i>
+                                            Ver timesheet
+                                        </a>
+                                        <a class="btn btn-info btn-sm" href="/editar_timesheet/{{pos.timesheet.id}}">
+                                            <i class="fas fa-pencil-alt"></i>
+                                            Editar timesheet
+                                        </a>
+                                    </td>                                  
+                                </tr>            
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        {%else%}
+                        <p class="card-text">No existe ningún timesheet asociado al participante</p>
+                        {%endif%}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+{% endblock %}

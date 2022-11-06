@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% block tittle %}
+Ori | Nueva timesheet
+{% endblock %}
+
+{% block active_module_timesheet%}
+active
+{% endblock %}
+
+{% block open_timesheet%}-open{% endblock %}
+
+{% block active_nueva_timesheet %}
+active
+{% endblock %}
+
+{% block titulo_main %}
+Nueva timesheet
+{% endblock %}
+
+{% block path_main %}
+<li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+<li class="breadcrumb-item active">nueva_timesheet</li>
+{% endblock %}
+
+{% block main %}
+
+
+
+<section class="content">
+    <form method="POST" class="post-form" novalidate enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="card card-purple">
+                    <div class="card-header">
+                        <h3 class="card-title">Añadir nueva timesheet</h3>
+                    </div>
+                    <div class="card-body">
+                        
+                        <div class="form-group">
+                            {{form.tipo.label_tag}}
+                            {{form.tipo}}
+                            {{form.errors.tipo}}
+                        </div>
+                        <div class="form-group">
+                            {{form.rol.label_tag}}
+                            {{form.rol}}
+                            {{form.errors.rol}}
+                        </div>
+
+                        {%if periodosenproyectoelparticipante%}
+                        <div class="form-group">
+                            {{form.periodo.label_tag}}                                                        
+                            <select select name="periodo" class="form-control" required="" id="id_periodo">
+                                <option value="" selected="">---------</option>
+                                {%for periodo in periodosenproyectoelparticipante%}
+                                <option value="{{periodo.id}}">Proyecto (al que pertenece el periodo) = {{periodo.proyecto.nombreproyecto}} , Número de periodo = {{periodo.num_periodo}}</option>
+                                {%endfor%}
+                            </select>
+                            {{form.errors.periodo}}
+                        </div>
+                        {%else%}
+                        <p class="card-text">No tiene ningún periodo para ningún proyecto</p>
+                        {%endif%}
+
+                        
+                        <div class="form-group">
+                            {{form.intellectual_output.label_tag}}
+                            {{form.intellectual_output}}
+                            {{form.errors.intellectual_output}}
+                        </div>
+                        <div class="form-group">
+                            {{form.num_working_days.label_tag}}
+                            {{form.num_working_days}}
+                            {{form.errors.num_working_days}}
+                        </div>   
+                        <hr class="mb-2">
+                        <div class="col">
+                            
+                            <input type="submit" value="Crear nueva timesheet" class="btn btn-success float-right">
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card card-info">
+                    <div class="card-header">
+                        <h3 class="card-title">Enlazar con participante y proyecto</h3>
+                    </div>
+                    <div class="card-body">
+                        {%if proyectoparti%}
+                        <div class="form-group">
+                            {{form2.participanteproyectos.label_tag}}                                                        
+                            <select name="participanteproyectos" class="form-control" required="" id="id_participanteproyectos">
+                                <option value="" selected="">---------</option>
+                                {%for proyectopa in proyectoparti%}
+                                <option value="{{proyectopa.id}}">{{proyectopa}}</option>
+                                {%endfor%}
+                            </select>
+                            {{form2.errors.participanteproyectos}}
+                        </div>
+                        {%else%}
+                        <p class="card-text">No estás en ningún proyecto</p>
+                        {%endif%}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</section>
+
+{% endblock %}

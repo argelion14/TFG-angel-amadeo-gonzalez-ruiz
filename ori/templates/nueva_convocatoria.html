@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block tittle %}
+Ori | Nueva convocatoria
+{% endblock %}
+
+{% block active_module_convocatoria%}
+active
+{% endblock %}
+
+{% block open_convocatoria%}-open{% endblock %}
+
+{% block active_nueva_convocatoria %}
+active
+{% endblock %}
+
+{% block titulo_main %}
+Nueva convocatoria
+{% endblock %}
+
+{% block path_main %}
+<li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+<li class="breadcrumb-item active">nueva_convocatoria</li>
+{% endblock %}
+
+{% block main %}
+
+
+
+<section class="content">
+    <form method="POST" class="post-form" novalidate enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="card card-olive">
+                    <div class="card-header">
+                        <h3 class="card-title">Añadir nueva convocatoria</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            {{form.anio.label_tag}}
+                            {{form.anio}}
+                            {{form.errors.anio}}
+                        </div>
+                    
+                        <hr class="mb-2">
+                        <div class="col">
+                            
+                            <input type="submit" value="Crear nueva convocatoria" class="btn btn-success float-right">
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+        </div>
+
+    </form>
+</section>
+
+{% endblock %}
