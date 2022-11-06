@@ -266,8 +266,6 @@ class Posee(models.Model):
         self.timesheet.delete()
         super(Posee, self).delete(*args, **kwargs)
         
-
-
 class Sepresenta(models.Model):
     #id = models.BigAutoField(primary_key=True)
     convocatoriasubprogramas = models.ForeignKey(ConvocatoriaConvocatoriasSubprogramas, on_delete=models.CASCADE)
