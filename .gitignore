@@ -129,6 +129,6 @@ dmypy.json
 .pyre/
 
 #SQL
-.sql
+*.sql
 
-.ori/migrations
+.ori/migrations/
