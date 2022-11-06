@@ -41,9 +41,9 @@ Ver subprograma <b>{{subprograma.nombresubprograma}}</b>
                         <dt class="col-sm-4">Nombre subprograma</dt>
                         <dd class="col-sm-8">{{subprograma.nombresubprograma}}</dd>
                         <dt class="col-sm-4">Desciende de subprograma</dt>
-                        <dd class="col-sm-8">{{subprograma.padresubprograma.nombresubprograma}}</dd>
+                        <dd class="col-sm-8"><a title="Ver subprograma" href="/ver_subprograma/{{subprograma.padresubprograma.id}}">{{subprograma.padresubprograma.nombresubprograma}}</a></dd>
                         <dt class="col-sm-4">Nombre programa padre</dt>
-                        <dd class="col-sm-8">{{subprograma.padreprograma.nombreprograma}}</dd>
+                        <dd class="col-sm-8"><a title="Ver programa" href="/ver_programa/{{subprograma.padreprograma.id}}">{{subprograma.padreprograma.nombreprograma}}</a></dd>
                     </dl>
                 </div>
             </div>
@@ -109,7 +109,7 @@ Ver subprograma <b>{{subprograma.nombresubprograma}}</b>
                 <div class="card-body">
                     <dl class="row">
                         <dt class="col-sm-4">Nombre Programa</dt>
-                        <dd class="col-sm-8">{{subprograma.programa.nombreprograma}}</dd>
+                        <dd class="col-sm-8"><a title="Ver programa" href="/ver_programa/{{subprograma.programa.id}}">{{subprograma.programa.nombreprograma}}</a></dd>
                         <dt class="col-sm-4">Fecha creación</dt>
                         <dd class="col-sm-8">{{subprograma.programa.fecha_creacion}}</dd>
                     </dl>
