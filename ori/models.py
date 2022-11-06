@@ -49,7 +49,6 @@ class Proyecto(models.Model):
     id_referencia = models.IntegerField(blank=True, null=True)
     web = models.CharField(max_length=100, blank=True, null=True)
     notas = models.CharField(max_length=500, blank=True, null=True)
-    fecha_creacion = models.DateField(blank=True, null=True)
     coordina_institucion = models.ForeignKey(Institucion, on_delete=models.CASCADE)
     partnership_agreement = models.ForeignKey(PartnershipAgreement, on_delete=models.CASCADE, blank=True, null=True)
     periodicidad = models.ForeignKey(Periodicidad, on_delete=models.CASCADE)
