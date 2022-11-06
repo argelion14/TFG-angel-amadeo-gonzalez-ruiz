@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'misitio.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ori',
+        'NAME': 'ori2',
         'USER':'root',
         'PASSWORD': 'root',
         'HOST':'127.0.0.1',

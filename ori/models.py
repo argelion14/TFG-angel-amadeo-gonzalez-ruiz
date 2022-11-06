@@ -65,7 +65,7 @@ class Proyecto(models.Model):
 class File(models.Model):
     #id = models.BigAutoField(primary_key=True)
     file = models.FileField(upload_to="archivos/",null=False, blank=False,)
-    file_proyecto_id = models.ForeignKey(Proyecto, on_delete=models.CASCADE,null=False, blank=False)
+    file_proyecto_id = models.OneToOneField(Proyecto, on_delete=models.CASCADE,null=False, blank=False)
     fecha_creacion = models.DateField(auto_now = False,auto_now_add=True, null=True)
 
     class Meta:
