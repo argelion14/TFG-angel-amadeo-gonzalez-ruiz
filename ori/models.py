@@ -103,7 +103,7 @@ class Departamento(models.Model):
         return self.nombredepartamento
 
 class Participante(AbstractUser):
-    username = models.CharField(max_length=200)
+    username = models.CharField(max_length=200, unique=True)
     vinculacion = models.CharField(max_length=200, null=True, blank=True)
     departamento = models.ForeignKey(Departamento, on_delete=models.CASCADE, null=True, blank=True)
     email = models.EmailField(max_length=200, unique=True)
