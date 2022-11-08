@@ -25,7 +25,9 @@ CREATE TABLE IF NOT EXISTS `periodicidad` (
   `tipo_periodicidad` varchar(40) NOT NULL,
   `periodosanuales` int NOT NULL,
   `fecha_creacion` date DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `periodicidad_periodosanuales_1bb16df2_uniq` (`periodosanuales`),
+  UNIQUE KEY `periodicidad_tipo_periodicidad_03327ac1_uniq` (`tipo_periodicidad`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Volcando datos para la tabla ori.periodicidad: ~0 rows (aproximadamente)
@@ -34,9 +36,10 @@ DELETE FROM `periodicidad`;
 -- Volcando estructura para tabla ori.partnership_agreement
 CREATE TABLE IF NOT EXISTS `partnership_agreement` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `estado` varchar(40) NOT NULL,
+  `estado` varchar(100) NOT NULL,
   `fecha_creacion` date DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `partnership_agreement_estado_dca60c8d_uniq` (`estado`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Volcando datos para la tabla ori.partnership_agreement: ~0 rows (aproximadamente)
@@ -45,11 +48,12 @@ DELETE FROM `partnership_agreement`;
 -- Volcando estructura para tabla ori.institucion
 CREATE TABLE IF NOT EXISTS `institucion` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `nombreinstitucion` varchar(200) DEFAULT NULL,
+  `nombreinstitucion` varchar(200) NOT NULL,
   `email` varchar(200) DEFAULT NULL,
   `pais` varchar(200) DEFAULT NULL,
   `fecha_creacion` date DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `institucion_nombreinstitucion_301441df_uniq` (`nombreinstitucion`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Volcando datos para la tabla ori.institucion: ~0 rows (aproximadamente)
@@ -117,7 +121,8 @@ CREATE TABLE IF NOT EXISTS `departamento` (
   `nombredepartamento` varchar(200) NOT NULL,
   `correo` varchar(200) DEFAULT NULL,
   `fecha_creacion` date DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `departamento_nombredepartamento_70307118_uniq` (`nombredepartamento`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Volcando datos para la tabla ori.departamento: ~0 rows (aproximadamente)
@@ -154,7 +159,8 @@ CREATE TABLE IF NOT EXISTS `rol` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `rolename` varchar(200) NOT NULL,
   `fecha_creacion` date DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `rol_rolename_3fd0aade_uniq` (`rolename`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Volcando datos para la tabla ori.rol: ~0 rows (aproximadamente)

@@ -8,8 +8,8 @@ from django.db import models
 
 class Periodicidad(models.Model):
     #id = models.BigAutoField(primary_key=True)
-    tipo_periodicidad = models.CharField(max_length=40)
-    periodosanuales = models.IntegerField()
+    tipo_periodicidad = models.CharField(max_length=40, unique=True)
+    periodosanuales = models.IntegerField(unique=True)
     fecha_creacion = models.DateField(auto_now = False,auto_now_add=True, null=True)
 
     class Meta:
@@ -20,7 +20,7 @@ class Periodicidad(models.Model):
 
 class PartnershipAgreement(models.Model):
     #id = models.BigAutoField(primary_key=True)
-    estado = models.CharField(max_length=40)
+    estado = models.CharField(max_length=100, unique=True)
     fecha_creacion = models.DateField(auto_now = False,auto_now_add=True, null=True)
 
     class Meta:
@@ -31,7 +31,7 @@ class PartnershipAgreement(models.Model):
 
 class Institucion(models.Model):
     #id = models.BigAutoField(primary_key=True)
-    nombreinstitucion = models.CharField(max_length=200, null=True)
+    nombreinstitucion = models.CharField(max_length=200, unique=True)
     email = models.EmailField(max_length=200, null=True)
     pais = models.CharField(max_length=200, null=True)
     fecha_creacion = models.DateField(auto_now = False,auto_now_add=True, null=True)
@@ -92,7 +92,7 @@ class Presupuesto(models.Model):
 
 class Departamento(models.Model):
     #id = models.BigAutoField(primary_key=True)
-    nombredepartamento = models.CharField(max_length=200)
+    nombredepartamento = models.CharField(max_length=200, unique=True)
     correo = models.EmailField(max_length=200, null=True, blank=True)
     fecha_creacion = models.DateField(auto_now = False,auto_now_add=True, null=True)
 
@@ -120,7 +120,7 @@ class Participante(AbstractUser):
 
 class Rol(models.Model):
     #id = models.BigAutoField(primary_key=True)
-    rolename = models.CharField(max_length=200)
+    rolename = models.CharField(max_length=200, unique=True)
     fecha_creacion = models.DateField(auto_now = False,auto_now_add=True, null=True)
 
     class Meta:
