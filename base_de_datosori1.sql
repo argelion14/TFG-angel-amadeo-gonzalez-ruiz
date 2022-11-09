@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `periodicidad` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `periodicidad_periodosanuales_1bb16df2_uniq` (`periodosanuales`),
   UNIQUE KEY `periodicidad_tipo_periodicidad_03327ac1_uniq` (`tipo_periodicidad`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 -- Volcando datos para la tabla ori.periodicidad: ~0 rows (aproximadamente)
 DELETE FROM `periodicidad`;
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `partnership_agreement` (
   `fecha_creacion` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `partnership_agreement_estado_dca60c8d_uniq` (`estado`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 -- Volcando datos para la tabla ori.partnership_agreement: ~0 rows (aproximadamente)
 DELETE FROM `partnership_agreement`;
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `institucion` (
   `fecha_creacion` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `institucion_nombreinstitucion_301441df_uniq` (`nombreinstitucion`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 -- Volcando datos para la tabla ori.institucion: ~0 rows (aproximadamente)
 DELETE FROM `institucion`;
@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS `proyecto` (
   CONSTRAINT `proyecto_coordina_institucion_id_73189548_fk_institucion_id` FOREIGN KEY (`coordina_institucion_id`) REFERENCES `institucion` (`id`),
   CONSTRAINT `proyecto_partnership_agreemen_f7e406aa_fk_partnersh` FOREIGN KEY (`partnership_agreement_id`) REFERENCES `partnership_agreement` (`id`),
   CONSTRAINT `proyecto_periodicidad_id_7b846f2c_fk_periodicidad_id` FOREIGN KEY (`periodicidad_id`) REFERENCES `periodicidad` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 -- Volcando datos para la tabla ori.proyecto: ~0 rows (aproximadamente)
 DELETE FROM `proyecto`;
@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS `file` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `file_file_proyecto_id_id_3b6dcb69_uniq` (`file_proyecto_id_id`),
   CONSTRAINT `file_file_proyecto_id_id_3b6dcb69_fk_proyecto_proyecto_id` FOREIGN KEY (`file_proyecto_id_id`) REFERENCES `proyecto` (`proyecto_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 -- Volcando datos para la tabla ori.file: ~0 rows (aproximadamente)
 DELETE FROM `file`;
@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS `presupuesto` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `proyecto_id` (`proyecto_id`),
   CONSTRAINT `presupuesto_proyecto_id_d028efe2_fk_proyecto_proyecto_id` FOREIGN KEY (`proyecto_id`) REFERENCES `proyecto` (`proyecto_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 -- Volcando datos para la tabla ori.presupuesto: ~0 rows (aproximadamente)
 DELETE FROM `presupuesto`;
@@ -123,7 +123,7 @@ CREATE TABLE IF NOT EXISTS `departamento` (
   `fecha_creacion` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `departamento_nombredepartamento_70307118_uniq` (`nombredepartamento`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 -- Volcando datos para la tabla ori.departamento: ~0 rows (aproximadamente)
 DELETE FROM `departamento`;
@@ -149,7 +149,7 @@ CREATE TABLE IF NOT EXISTS `participante` (
   UNIQUE KEY `email` (`email`),
   KEY `participante_departamento_id_a1f62ac5_fk_departamento_id` (`departamento_id`),
   CONSTRAINT `participante_departamento_id_a1f62ac5_fk_departamento_id` FOREIGN KEY (`departamento_id`) REFERENCES `departamento` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 -- Volcando datos para la tabla ori.participante: ~0 rows (aproximadamente)
 DELETE FROM `participante`;
@@ -161,7 +161,7 @@ CREATE TABLE IF NOT EXISTS `rol` (
   `fecha_creacion` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `rol_rolename_3fd0aade_uniq` (`rolename`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 -- Volcando datos para la tabla ori.rol: ~0 rows (aproximadamente)
 DELETE FROM `rol`;
@@ -176,7 +176,7 @@ CREATE TABLE IF NOT EXISTS `periodo` (
   UNIQUE KEY `periodo_id_proyecto_id_165d2c8a_uniq` (`id`,`proyecto_id`),
   KEY `periodo_proyecto_id_c4f2da88_fk_proyecto_proyecto_id` (`proyecto_id`),
   CONSTRAINT `periodo_proyecto_id_c4f2da88_fk_proyecto_proyecto_id` FOREIGN KEY (`proyecto_id`) REFERENCES `proyecto` (`proyecto_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 -- Volcando datos para la tabla ori.periodo: ~0 rows (aproximadamente)
 DELETE FROM `periodo`;
@@ -195,7 +195,7 @@ CREATE TABLE IF NOT EXISTS `timesheet` (
   KEY `timesheet_periodo_id_20e804b5_fk_periodo_id` (`periodo_id`),
   CONSTRAINT `timesheet_periodo_id_20e804b5_fk_periodo_id` FOREIGN KEY (`periodo_id`) REFERENCES `periodo` (`id`),
   CONSTRAINT `timesheet_rol_id_f3ede523_fk_rol_id` FOREIGN KEY (`rol_id`) REFERENCES `rol` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 -- Volcando datos para la tabla ori.timesheet: ~0 rows (aproximadamente)
 DELETE FROM `timesheet`;
@@ -212,7 +212,7 @@ CREATE TABLE IF NOT EXISTS `tarea` (
   PRIMARY KEY (`id`),
   KEY `tarea_timesheet_id_d7869490_fk_timesheet_id` (`timesheet_id`),
   CONSTRAINT `tarea_timesheet_id_d7869490_fk_timesheet_id` FOREIGN KEY (`timesheet_id`) REFERENCES `timesheet` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 -- Volcando datos para la tabla ori.tarea: ~0 rows (aproximadamente)
 DELETE FROM `tarea`;
@@ -223,7 +223,7 @@ CREATE TABLE IF NOT EXISTS `programa` (
   `nombreprograma` varchar(200) NOT NULL,
   `fecha_creacion` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 -- Volcando datos para la tabla ori.programa: ~0 rows (aproximadamente)
 DELETE FROM `programa`;
@@ -245,7 +245,7 @@ CREATE TABLE IF NOT EXISTS `subprograma` (
   CONSTRAINT `subprograma_padreprograma_id_fae5c9a4_fk_programa_id` FOREIGN KEY (`padreprograma_id`) REFERENCES `programa` (`id`),
   CONSTRAINT `subprograma_padresubprograma_id_e595799d_fk_subprograma_id` FOREIGN KEY (`padresubprograma_id`) REFERENCES `subprograma` (`id`),
   CONSTRAINT `subprograma_programa_id_b9358eac_fk_programa_id` FOREIGN KEY (`programa_id`) REFERENCES `programa` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 -- Volcando datos para la tabla ori.subprograma: ~0 rows (aproximadamente)
 DELETE FROM `subprograma`;
@@ -256,7 +256,7 @@ CREATE TABLE IF NOT EXISTS `convocatoria` (
   `fecha_creacion` date DEFAULT NULL,
   `anio` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 -- Volcando datos para la tabla ori.convocatoria: ~0 rows (aproximadamente)
 DELETE FROM `convocatoria`;
@@ -272,7 +272,7 @@ CREATE TABLE IF NOT EXISTS `convocatoria_convocatorias_subprogramas` (
   KEY `convocatoria_convoca_subprograma_id_9e0519bc_fk_subprogra` (`subprograma_id`),
   CONSTRAINT `convocatoria_convoca_convocatoria_id_9589a30d_fk_convocato` FOREIGN KEY (`convocatoria_id`) REFERENCES `convocatoria` (`id`),
   CONSTRAINT `convocatoria_convoca_subprograma_id_9e0519bc_fk_subprogra` FOREIGN KEY (`subprograma_id`) REFERENCES `subprograma` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 -- Volcando datos para la tabla ori.convocatoria_convocatorias_subprogramas: ~0 rows (aproximadamente)
 DELETE FROM `convocatoria_convocatorias_subprogramas`;
@@ -288,7 +288,7 @@ CREATE TABLE IF NOT EXISTS `participante_proyectos` (
   KEY `participante_proyect_proyecto_id_a8f361b6_fk_proyecto_` (`proyecto_id`),
   CONSTRAINT `participante_proyect_participante_id_e9dc32ba_fk_participa` FOREIGN KEY (`participante_id`) REFERENCES `participante` (`id`),
   CONSTRAINT `participante_proyect_proyecto_id_a8f361b6_fk_proyecto_` FOREIGN KEY (`proyecto_id`) REFERENCES `proyecto` (`proyecto_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 -- Volcando datos para la tabla ori.participante_proyectos: ~0 rows (aproximadamente)
 DELETE FROM `participante_proyectos`;
@@ -304,7 +304,7 @@ CREATE TABLE IF NOT EXISTS `proyecto_participa_institucion` (
   KEY `proyecto_participa_i_institucion_id_b7a84cb0_fk_instituci` (`institucion_id`),
   CONSTRAINT `proyecto_participa_i_institucion_id_b7a84cb0_fk_instituci` FOREIGN KEY (`institucion_id`) REFERENCES `institucion` (`id`),
   CONSTRAINT `proyecto_participa_i_proyecto_id_4c1f228d_fk_proyecto_` FOREIGN KEY (`proyecto_id`) REFERENCES `proyecto` (`proyecto_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 -- Volcando datos para la tabla ori.proyecto_participa_institucion: ~0 rows (aproximadamente)
 DELETE FROM `proyecto_participa_institucion`;
@@ -320,7 +320,7 @@ CREATE TABLE IF NOT EXISTS `posee` (
   UNIQUE KEY `posee_timesheet_id_d150c86d_uniq` (`timesheet_id`),
   CONSTRAINT `posee_participanteproyecto_16b8cfbf_fk_participa` FOREIGN KEY (`participanteproyectos_id`) REFERENCES `participante_proyectos` (`id`),
   CONSTRAINT `posee_timesheet_id_d150c86d_fk_timesheet_id` FOREIGN KEY (`timesheet_id`) REFERENCES `timesheet` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 -- Volcando datos para la tabla ori.posee: ~0 rows (aproximadamente)
 DELETE FROM `posee`;
@@ -336,7 +336,7 @@ CREATE TABLE IF NOT EXISTS `sepresenta` (
   UNIQUE KEY `sepresenta_proyecto_id_acff89f9_uniq` (`proyecto_id`),
   CONSTRAINT `sepresenta_convocatoriasubprogr_1133e9b9_fk_convocato` FOREIGN KEY (`convocatoriasubprogramas_id`) REFERENCES `convocatoria_convocatorias_subprogramas` (`id`),
   CONSTRAINT `sepresenta_proyecto_id_acff89f9_fk_proyecto_proyecto_id` FOREIGN KEY (`proyecto_id`) REFERENCES `proyecto` (`proyecto_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 -- Volcando datos para la tabla ori.sepresenta: ~0 rows (aproximadamente)
 DELETE FROM `sepresenta`;

@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Ángel Amadeo González Ruiz">
+  <title>ORI | Login</title>
+  <link rel="shortcut icon" type="image/png" href="{% static 'img/Logo_ORI.ico' %}" />
+  
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  
+  <!-- Font Awesome Icons-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!--<link rel="stylesheet" href="{% static 'lib/AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css' %}">-->
+
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static 'css/adminlte.min.css' %}">
+  <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/css/adminlte.min.css">-->
+
+  <!-- Flag icon -->
+  <link rel="stylesheet" href="{% static 'css/flag-icon-css/css/flag-icon.min.css' %}">
+
+  <!-- OverlayScrollbars -->
+  <link rel="stylesheet" href="{% static 'overlayScrollbars/css/OverlayScrollbars.min.css' %}">
+
+  <!--
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons+Outlined">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Symbols+Outlined">
+  -->
+
+</head>
+
+<body class="hold-transition login-page">
+  <div class="login-box">
+    <div class="login-logo">
+      <a href="{% url 'dashboard' %}"> <img title="Logo ORI" src="{% static 'img/Logo_ORI.png' %}" alt="Logo ORI"
+          class="brand-image img-circle elevation-3" style="opacity: .8"> </a>
+
+    </div>
+    <!-- /.login-logo -->
+    <div class="card">
+      <div class="card-body login-card-body">
+        {% if form.errors %}
+        <div class="alert alert-warning" role="alert">
+          Email o contraseña incorrecto
+        </div>
+        {% endif %}
+
+
+
+        <p class="login-box-msg">Introduce el email y contraseña proporcionado</p>
+        <form method="post">
+          {% csrf_token %}
+
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Email" name="username">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-solid fa-envelope"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="input-group mb-3">
+            <input type="password" class="form-control" placeholder="Password" name="password">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+
+            <!-- /.col -->
+            <div class="col-12">
+              <button type="submit" id="submit" class="btn btn-primary btn-block">Iniciar sesión</button>
+            </div>
+            <!-- /.col -->
+          </div>
+        </form>
+      </div>
+      <!-- /.login-card-body -->
+    </div>
+  </div>
+  <!-- /.login-box -->
+
+  <!-- REQUIRED SCRIPTS -->
+  <!-- jQuery -->
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+  <!-- Bootstrap 4 -->
+  <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+  <!-- AdminLTE App -->
+  <script src="{% static 'js/adminlte.min.js' %}"></script>
+</body>
+
+</html>
