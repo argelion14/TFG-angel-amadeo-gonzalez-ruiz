@@ -459,7 +459,9 @@ def nuevo_participante(request):
             else:
                 form = ParticipanteStaffForm(request.POST)
             if form.is_valid():
-                proyecto = form.save(commit=True)
+                proyecto = form.save(commit=False)
+                if proyecto.is_superuser == 1:
+                    proyecto.is_staff = 1
                 proyecto.save()
                 messages.success(request, "Se creó el participante")
                 return redirect('/participantes')
@@ -490,7 +492,10 @@ def editar_participante(request,pk):
             else:
                 form = ParticipanteStaffForm(request.POST, instance=participante)
             if form.is_valid():
-                form.save()
+                partici = form.save(commit=False)
+                if partici.is_superuser == 1:
+                    partici.is_staff = 1
+                partici.save()
                 messages.success(request, F"El usuario {participante.username} ha sido actualizado!")
             else:
                 messages.error(request, F"Fallo en el formulario")
