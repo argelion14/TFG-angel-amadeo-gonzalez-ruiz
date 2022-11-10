@@ -595,7 +595,7 @@ def editar_timesheet(request,pk):
                     else:
                         messages.error(request, F"El periodo debe pertenecer al mismo proyecto con lo que lo quieres enlazar")
                 else:
-                    messages.error(request, F"Fallo en el formulario")
+                    messages.error(request, F"Fallo en el formulario de edición de timesheet")
             
             elif request.POST.get('editarparticipanteproyecto'):
                 form1 = PoseeForm(request.POST, instance = Posee.objects.get(timesheet_id=pk))
@@ -607,7 +607,7 @@ def editar_timesheet(request,pk):
                     else: 
                         messages.error(request, F"El periodo debe pertenecer al mismo proyecto con lo que lo quieres enlazar")
                 else:
-                    messages.error(request, F"Formulario no válido")
+                    messages.error(request, F"Fallo en el formulario de edición de participante con proyecto")
 
             elif request.POST.get('agregatareaatimesheet'):
                 form2 = TareaForm(request.POST)
@@ -650,7 +650,7 @@ def borrar_timesheet(request,pk):
         timesheet = Timesheet.objects.get(id=pk)
         
         
-        messages.success(request, F"La timesheet {timesheet.nombretimesheet} ha sido eliminada !")
+        messages.success(request, F"La timesheet {timesheet.id} ha sido eliminada !")
         timesheet.delete()
         return redirect('/timesheet/')
     else:
